@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">JDM-APP</string>
+    <string name="app_name">Rent My Awesome Car</string>
+    <string name="rmac_logo">RMAC LOGO</string>
+    <string name="login">Login</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="action_settings">Settings</string>
 </resources>
