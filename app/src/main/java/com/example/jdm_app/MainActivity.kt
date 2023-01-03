@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
+        binding.bottomNavigationView.selectedItemId = R.id.action_cars
         setContentView(binding.root)
 
         val layoutManager = LinearLayoutManager(this)
@@ -30,13 +31,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_home -> {
+                R.id.action_reservation -> {
+                    binding.recyclerView.visibility = RecyclerView.GONE
                     true
                 }
-                R.id.action_search -> {
+                R.id.action_cars -> {
+                    binding.recyclerView.visibility = RecyclerView.VISIBLE
                     true
+
                 }
-                R.id.action_settings -> {
+                R.id.action_profile -> {
+                    binding.recyclerView.visibility = RecyclerView.GONE
                     true
                 }
                 else -> false
