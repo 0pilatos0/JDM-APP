@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.example.jdm_app.databinding.ActivityMainBinding
 
 
@@ -28,6 +29,11 @@ class MainActivity : AppCompatActivity() {
             val recyclerView : RecyclerView = binding.recyclerView
             recyclerView.adapter = adapter
         }
+
+        binding.swipeRefresh.setOnRefreshListener(OnRefreshListener {
+            carViewModel.getCars()
+            binding.swipeRefresh.isRefreshing = false
+        })
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
