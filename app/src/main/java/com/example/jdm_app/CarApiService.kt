@@ -30,7 +30,7 @@ interface CarApiService {
     suspend fun getCarCPK(@Path("id") id: Int): Response<Double>
 }
 
-private val BASE_URL = "https://c695-2a02-a450-954b-1-3ccc-e0a-a40f-c513.eu.ngrok.io/"
+private val BASE_URL = BuildConfig.BASE_URL
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())

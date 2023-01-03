@@ -25,6 +25,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://c695-2a02-a450-954b-1-3ccc-e0a-a40f-c513.eu.ngrok.io/"'
+
+        }
+        debug {
+            buildConfigField "String", "BASE_URL", '"https://c695-2a02-a450-954b-1-3ccc-e0a-a40f-c513.eu.ngrok.io/"'
         }
     }
     compileOptions {
