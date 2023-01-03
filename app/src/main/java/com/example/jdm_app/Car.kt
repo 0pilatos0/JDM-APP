@@ -24,9 +24,6 @@ data class Car(
     @Json(name = "costPerKilometer")
     val costPerKilometer: Double,
 
-    @Json(name = "owner")
-    val owner: User,
-
     @Json(name = "seats")
     val seats: Int,
 

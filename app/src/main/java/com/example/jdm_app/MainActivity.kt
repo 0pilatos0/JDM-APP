@@ -1,9 +1,12 @@
 package com.example.jdm_app
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.jdm_app.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -14,9 +17,15 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val todoViewModel: CarViewModel by viewModels()
-        todoViewModel.todoResponse.observe(this) {
-            binding.textView.text = todoViewModel.todoResponse.value
+        val layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
+
+        val carViewModel: CarViewModel by viewModels()
+        carViewModel.carlist.observe(this) {
+            val adapter = CarAdapter(it)
+
+            val recyclerView : RecyclerView = binding.recyclerView
+            recyclerView.adapter = adapter
         }
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->

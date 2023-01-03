@@ -8,9 +8,9 @@ import kotlinx.coroutines.launch
 
 class CarViewModel : ViewModel() {
 
-    private val _todoResponse: MutableLiveData<String> = MutableLiveData()
-    val todoResponse: LiveData<String> // this livedata value is bound to a TextView.text property
-        get() = _todoResponse
+    private val _carList: MutableLiveData<List<Car>> = MutableLiveData()
+    val carlist: LiveData<List<Car>> // this livedata value is bound to a TextView.text property
+        get() = _carList
 
     init {
         getCars()
@@ -18,8 +18,8 @@ class CarViewModel : ViewModel() {
 
     fun getCars() {
         viewModelScope.launch {
-            val cars = CarApi.retrofitService.getCars().body().toString()
-            _todoResponse.value = cars
+            val cars = CarApi.retrofitService.getCars().body()
+            _carList.value = cars ?: emptyList()
         }
     }
 

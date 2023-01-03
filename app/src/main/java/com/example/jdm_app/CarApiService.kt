@@ -12,7 +12,7 @@ interface CarApiService {
     suspend fun getCars(): Response<List<Car>>
 }
 
-private val BASE_URL = "https://57fa-2a02-a450-954b-1-519b-5f63-6577-f5a3.eu.ngrok.io/"
+private val BASE_URL = "https://1318-2a02-a450-954b-1-1177-bc12-1dcb-4801.eu.ngrok.io/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
