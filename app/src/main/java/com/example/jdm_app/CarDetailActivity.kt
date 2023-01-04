@@ -14,10 +14,13 @@ class CarDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val car = intent.getSerializableExtra("car") as Car
-        binding.textViewMake.text = "Make: ${car.brand}"
-        binding.textViewModel.text = "Model: ${car.carType}"
-        binding.textViewYear.text = "Year: ${car.price}"
-        binding.textViewColor.text = "Color: ${car.color}"
+        binding.textViewTitle.text = "${car.color} ${car.brand}"
+        binding.textViewDescription.text = "${car.description}"
+        binding.textViewCarType.text = "Car type: ${car.carType}"
+        binding.textViewLicensePlate.text = "License plate: ${car.licensePlate}"
+        binding.textViewPrice.text = "Price: ${car.price}"
+        binding.textViewCostPerKilometer.text = "Cost per kilometer: ${car.costPerKilometer}"
+        binding.textViewSeats.text = "Seats: ${car.seats}"
 
         binding.buttonBack.setOnClickListener {
             finish()

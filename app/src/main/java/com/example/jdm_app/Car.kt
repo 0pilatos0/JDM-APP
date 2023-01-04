@@ -8,7 +8,7 @@ data class Car(
     val id: Int? = null,
 
     @Json(name = "licensePlate")
-    val userId: String,
+    val licensePlate: String,
 
     @Json(name = "brand")
     val brand: String,
