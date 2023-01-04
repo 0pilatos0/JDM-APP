@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val carViewModel: CarViewModel by viewModels()
         carViewModel.carlist.observe(this) {
-            val adapter = CarAdapter(it)
+            val adapter = CarAdapter(this, it)
 
             val recyclerView : RecyclerView = binding.recyclerView
             recyclerView.adapter = adapter

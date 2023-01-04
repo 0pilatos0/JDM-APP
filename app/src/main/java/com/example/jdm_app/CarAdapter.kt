@@ -1,12 +1,14 @@
 package com.example.jdm_app
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jdm_app.databinding.CarItemBinding
 
 
-class CarAdapter(private val mCars: List<Car>) : RecyclerView.Adapter<CarViewHolder>() {
+class CarAdapter(private val context: Context, private val mCars: List<Car>) : RecyclerView.Adapter<CarViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder {
         val binding: CarItemBinding =
             CarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -14,8 +16,14 @@ class CarAdapter(private val mCars: List<Car>) : RecyclerView.Adapter<CarViewHol
     }
 
     override fun onBindViewHolder(holder: CarViewHolder, position: Int) {
-        val car = mCars[position]
+        val car: Car = mCars[position]
         holder.bind(car)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, CarDetailActivity::class.java)
+            intent.putExtra("car", car)
+            context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int {

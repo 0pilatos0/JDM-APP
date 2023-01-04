@@ -1,6 +1,7 @@
 package com.example.jdm_app
 
 import com.squareup.moshi.Json
+import java.io.Serializable
 
 data class Car(
     @Json(name = "id")
@@ -34,4 +35,4 @@ data class Car(
     val images: List<String>,
 
 
-)
+) : Serializable
