@@ -22,9 +22,32 @@ class CarEditActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val car = intent.getSerializableExtra("car") as Car
-        binding.editTextMake.setText(car.brand)
+
+        val carBrandPosition = when (car.brand) {
+            "Audi" -> 0
+            "Bentley" -> 1
+            "BMW" -> 2
+            "Buick" -> 3
+            "Cadillac" -> 4
+            "Chevrolet" -> 5
+            "Chrysler" -> 6
+            "Fiat" -> 7
+            "Ford" -> 8
+            else -> 0
+        }
+
+        binding.editSpinnerCarBrand.setSelection(carBrandPosition)
         binding.editTextColor.setText(car.color)
-        binding.editTextCarType.setText(car.carType)
+
+        val carTypePosition = when (car.carType) {
+            "ICE" -> 0
+            "BEV" -> 1
+            "FCEV" -> 2
+            else -> 0
+        }
+        binding.editSpinnerCarType.setSelection(carTypePosition)
+
+
         binding.editTextLicensePlate.setText(car.licensePlate)
         binding.editTextPrice.setText(car.price.toString())
         binding.editTextCostPerKilometer.setText(car.costPerKilometer.toString())
@@ -36,9 +59,9 @@ class CarEditActivity : AppCompatActivity() {
         }
 
         binding.buttonSave.setOnClickListener {
-            car.brand = binding.editTextMake.text.toString()
+            car.brand = binding.editSpinnerCarBrand.selectedItem.toString()
             car.color = binding.editTextColor.text.toString()
-            car.carType = binding.editTextCarType.text.toString()
+            car.carType = binding.editSpinnerCarType.selectedItem.toString()
             car.licensePlate = binding.editTextLicensePlate.text.toString()
             car.price = binding.editTextPrice.text.toString().toInt()
 

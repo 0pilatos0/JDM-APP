@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edit_text_make"
+    <Spinner
+        android:id="@+id/edit_spinner_car_brand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Make" />
+        android:entries="@array/car_brands" />
 
     <EditText
         android:layout_width="match_parent"
@@ -23,11 +23,11 @@
         android:layout_height="wrap_content"
         android:hint="Color" />
 
-    <EditText
-        android:id="@+id/edit_text_car_type"
+    <Spinner
+        android:id="@+id/edit_spinner_car_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Car type" />
+        android:entries="@array/car_types" />
 
     <EditText
         android:id="@+id/edit_text_license_plate"
