@@ -61,5 +61,19 @@ class CarEditActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.buttonDelete.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = CarApi.retrofitService.deleteCar(car.id!!)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@CarEditActivity, "Car deleted!", Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else {
+                        Toast.makeText(this@CarEditActivity, "Error occurred while deleting car!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 }
