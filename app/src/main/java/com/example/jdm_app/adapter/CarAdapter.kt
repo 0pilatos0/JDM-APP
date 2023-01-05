@@ -1,11 +1,13 @@
-package com.example.jdm_app
+package com.example.jdm_app.adapter
 
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.jdm_app.activity.CarDetailActivity
 import com.example.jdm_app.databinding.CarItemBinding
+import com.example.jdm_app.domain.Car
 
 
 class CarAdapter(private val context: Context, private val mCars: List<Car>) : RecyclerView.Adapter<CarViewHolder>() {

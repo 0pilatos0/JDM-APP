@@ -1,4 +1,4 @@
-package com.example.jdm_app
+package com.example.jdm_app.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.example.jdm_app.view.CarViewModel
+import com.example.jdm_app.R
+import com.example.jdm_app.adapter.CarAdapter
 import com.example.jdm_app.databinding.ActivityMainBinding
 
 

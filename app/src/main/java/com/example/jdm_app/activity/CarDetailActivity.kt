@@ -1,8 +1,9 @@
-package com.example.jdm_app
+package com.example.jdm_app.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.jdm_app.databinding.CarDetailBinding
+import com.example.jdm_app.domain.Car
 
 class CarDetailActivity : AppCompatActivity() {
 

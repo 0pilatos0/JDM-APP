@@ -1,4 +1,4 @@
-package com.example.jdm_app
+package com.example.jdm_app.domain
 
 import com.squareup.moshi.Json
 

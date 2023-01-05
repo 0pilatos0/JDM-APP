@@ -1,5 +1,7 @@
-package com.example.jdm_app
+package com.example.jdm_app.service
 
+import com.example.jdm_app.BuildConfig
+import com.example.jdm_app.domain.Car
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Response

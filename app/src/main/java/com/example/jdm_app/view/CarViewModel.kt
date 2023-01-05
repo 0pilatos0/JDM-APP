@@ -1,9 +1,11 @@
-package com.example.jdm_app
+package com.example.jdm_app.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.jdm_app.domain.Car
+import com.example.jdm_app.service.CarApi
 import kotlinx.coroutines.launch
 
 class CarViewModel : ViewModel() {
