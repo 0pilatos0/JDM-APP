@@ -1,9 +1,13 @@
 package com.example.jdm_app.activity
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.jdm_app.databinding.CarDetailBinding
 import com.example.jdm_app.databinding.CarEditBinding
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.service.CarApi
@@ -11,17 +15,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 
 class CarEditActivity : AppCompatActivity() {
 
     private lateinit var binding: CarEditBinding
+    private val SELECT_IMAGE_REQUEST_CODE = 0
+    private lateinit var car: Car
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CarEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val car = intent.getSerializableExtra("car") as Car
+        car = intent.getSerializableExtra("car") as Car
 
         val carBrandPosition = when (car.brand) {
             "Audi" -> 0
@@ -70,7 +77,6 @@ class CarEditActivity : AppCompatActivity() {
 
 
             CoroutineScope(Dispatchers.IO).launch {
-
                 if(car.id == null){
                     val response = CarApi.retrofitService.createCar(car)
                     withContext(Dispatchers.Main) {
@@ -78,7 +84,6 @@ class CarEditActivity : AppCompatActivity() {
                             Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
                             finish()
                         } else {
-                            // Error occurred while updating car
                             Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -90,14 +95,10 @@ class CarEditActivity : AppCompatActivity() {
                             Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
                             finish()
                         } else {
-                            // Error occurred while updating car
                             Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
-
-
-
             }
         }
 
@@ -118,6 +119,32 @@ class CarEditActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        binding.buttonSelectImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            startActivityForResult(intent, SELECT_IMAGE_REQUEST_CODE)
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val selectedImageUri = data?.data
+            val inputStream = contentResolver.openInputStream(selectedImageUri ?: return)
+            val imageBytes = inputStream.use { it?.readBytes() }
+            val imageBitmap =
+                imageBytes?.let { BitmapFactory.decodeByteArray(imageBytes, 0, it.size) }
+            val outputStream = ByteArrayOutputStream()
+            imageBitmap?.let { Bitmap.createScaledBitmap(it, 32, 32, false) }
+                ?.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            val scaledImageBytes = outputStream.toByteArray()
+
+            val imageBase64 = Base64.encodeToString(scaledImageBytes, Base64.NO_WRAP)
+
+
+            car.images?.add(imageBase64)
+
         }
     }
 }

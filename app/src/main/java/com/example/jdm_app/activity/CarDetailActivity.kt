@@ -2,6 +2,8 @@ package com.example.jdm_app.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.CarDetailBinding
 import com.example.jdm_app.domain.Car
 
@@ -26,5 +28,8 @@ class CarDetailActivity : AppCompatActivity() {
         binding.buttonBack.setOnClickListener {
             finish()
         }
+
+        binding.recyclerViewCarImages.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewCarImages.adapter = ImageAdapter(car.images as MutableList<String>)
     }
 }
