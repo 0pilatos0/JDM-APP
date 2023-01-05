@@ -1,6 +1,7 @@
 package com.example.jdm_app.domain
 
 import com.squareup.moshi.Json
+import java.io.Serializable
 
 data class User(
     @Json(name = "id")
@@ -17,4 +18,4 @@ data class User(
 
     @Json(name = "phoneNumber")
     val phoneNumber: String,
-)
+) : Serializable

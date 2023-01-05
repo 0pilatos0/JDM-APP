@@ -29,8 +29,10 @@ class OwnedCarsActivity : AppCompatActivity() {
             val recyclerView : RecyclerView = binding.recyclerView
             recyclerView.adapter = adapter
             //TODO REPLACE WITH LOGGED IN USER
-            carViewModel.getCarsByUserId(1)
         }
+
+        carViewModel.getCarsByUserId(1)
+
 
         binding.swipeRefresh.setOnRefreshListener(OnRefreshListener {
             //TODO REPLACE WITH LOGGED IN USER

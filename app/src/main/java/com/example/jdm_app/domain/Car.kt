@@ -8,28 +8,31 @@ data class Car(
     val id: Int? = null,
 
     @Json(name = "licensePlate")
-    val licensePlate: String,
+    var licensePlate: String,
 
     @Json(name = "brand")
-    val brand: String,
+    var brand: String,
 
     @Json(name = "carType")
-    val carType: String,
+    var carType: String,
 
     @Json(name = "color")
-    val color: String,
+    var color: String,
 
     @Json(name = "price")
-    val price: Int,
+    var price: Int,
 
     @Json(name = "costPerKilometer")
-    val costPerKilometer: Double,
+    var costPerKilometer: Double,
 
     @Json(name = "seats")
-    val seats: Int,
+    var seats: Int,
+
+    @Json(name = "owner")
+    val owner: User? = null,
 
     @Json(name = "description")
-    val description: String,
+    var description: String,
 
     @Json(name = "images")
     val images: List<String>,

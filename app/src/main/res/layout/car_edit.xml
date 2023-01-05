@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_text_make"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Make" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="description"
+        android:id="@+id/edit_text_description" />
+
+
+    <EditText
+        android:id="@+id/edit_text_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Color" />
+
+    <EditText
+        android:id="@+id/edit_text_car_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Car type" />
+
+    <EditText
+        android:id="@+id/edit_text_license_plate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="License plate" />
+
+    <EditText
+        android:id="@+id/edit_text_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Price" />
+
+    <EditText
+        android:id="@+id/edit_text_cost_per_kilometer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Cost per kilometer" />
+
+    <EditText
+        android:id="@+id/edit_text_seats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Seats" />
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        />
+</LinearLayout>
