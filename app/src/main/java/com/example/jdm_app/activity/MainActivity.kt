@@ -1,5 +1,6 @@
 package com.example.jdm_app.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,11 @@ class MainActivity : AppCompatActivity() {
 
             val recyclerView : RecyclerView = binding.recyclerView
             recyclerView.adapter = adapter
+        }
+
+        binding.myCarsButton.setOnClickListener {
+            val intent = Intent(this, OwnedCarsActivity::class.java)
+            this.startActivity(intent)
         }
 
         binding.swipeRefresh.setOnRefreshListener(OnRefreshListener {

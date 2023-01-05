@@ -25,5 +25,10 @@ class CarViewModel : ViewModel() {
         }
     }
 
-
+    fun getCarsByUserId(id: Int) {
+        viewModelScope.launch {
+            val cars = CarApi.retrofitService.getCarsByUserId(id).body()
+            _carList.value = cars ?: emptyList()
+        }
+    }
 }
