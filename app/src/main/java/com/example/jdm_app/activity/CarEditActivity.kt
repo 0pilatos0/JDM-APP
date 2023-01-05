@@ -49,9 +49,9 @@ class CarEditActivity : AppCompatActivity() {
 
 
         binding.editTextLicensePlate.setText(car.licensePlate)
-        binding.editTextPrice.setText(car.price.toString())
-        binding.editTextCostPerKilometer.setText(car.costPerKilometer.toString())
-        binding.editTextSeats.setText(car.seats.toString())
+        binding.editTextPrice.setText(car.price.toString() ?: "0")
+        binding.editTextCostPerKilometer.setText(car.costPerKilometer.toString() ?: "0")
+        binding.editTextSeats.setText(car.seats.toString() ?: "0")
         binding.editTextDescription.setText(car.description)
 
         binding.buttonBack.setOnClickListener {
@@ -64,9 +64,7 @@ class CarEditActivity : AppCompatActivity() {
             car.carType = binding.editSpinnerCarType.selectedItem.toString()
             car.licensePlate = binding.editTextLicensePlate.text.toString()
             car.price = binding.editTextPrice.text.toString().toInt()
-
-        //TODO FIX THIS TO CAST CORRECT
-//            car.costPerKilometer = binding.editTextCostPerKilometer.text.toString().toInt().toDouble()
+            car.costPerKilometer = binding.editTextCostPerKilometer.text.toString().toDouble()
             car.seats = binding.editTextSeats.text.toString().toInt()
             car.description = binding.editTextDescription.text.toString()
 
