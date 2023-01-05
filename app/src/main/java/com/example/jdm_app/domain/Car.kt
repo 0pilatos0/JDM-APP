@@ -8,34 +8,34 @@ data class Car(
     val id: Int? = null,
 
     @Json(name = "licensePlate")
-    var licensePlate: String,
+    var licensePlate: String? = null,
 
     @Json(name = "brand")
-    var brand: String,
+    var brand: String? = null,
 
     @Json(name = "carType")
-    var carType: String,
+    var carType: String? = null,
 
     @Json(name = "color")
-    var color: String,
+    var color: String? = null,
 
     @Json(name = "price")
-    var price: Int,
+    var price: Int? = 0,
 
     @Json(name = "costPerKilometer")
-    var costPerKilometer: Double,
+    var costPerKilometer: Double? = 0.0,
 
     @Json(name = "seats")
-    var seats: Int,
+    var seats: Int? = 0,
 
     @Json(name = "owner")
-    val owner: User? = null,
+    var owner: User? = null,
 
     @Json(name = "description")
-    var description: String,
+    var description: String? = null,
 
     @Json(name = "images")
-    val images: List<String>,
+    val images: List<String>? = emptyList(),
 
 
-) : Serializable
+    ) : Serializable

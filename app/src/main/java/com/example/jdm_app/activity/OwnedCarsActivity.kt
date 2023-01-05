@@ -1,5 +1,6 @@
 package com.example.jdm_app.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.example.jdm_app.view.CarViewModel
 import com.example.jdm_app.adapter.OwnedCarAdapter
 import com.example.jdm_app.databinding.CarsOwnedBinding
+import com.example.jdm_app.domain.Car
+import com.example.jdm_app.domain.User
 
 
 class OwnedCarsActivity : AppCompatActivity() {
@@ -42,6 +45,18 @@ class OwnedCarsActivity : AppCompatActivity() {
 
         binding.buttonBack.setOnClickListener {
             finish()
+        }
+
+        binding.buttonCreate.setOnClickListener {
+            var user = User()
+            var car = Car()
+
+            user.id = 1
+            car.owner = user
+
+            val intent = Intent(this, CarEditActivity::class.java)
+            intent.putExtra("car", car)
+            this.startActivity(intent)
         }
 
     }

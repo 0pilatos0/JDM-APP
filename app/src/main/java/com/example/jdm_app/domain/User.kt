@@ -5,17 +5,17 @@ import java.io.Serializable
 
 data class User(
     @Json(name = "id")
-    val id: Int? = null,
+    var id: Int? = null,
 
     @Json(name = "username")
-    val username: String,
+    val username: String? = null,
 
     @Json(name = "dateOfBirth")
-    val dateOfBirth: String,
+    val dateOfBirth: String? = null,
 
     @Json(name = "address")
-    val address: String,
+    val address: String? = null,
 
     @Json(name = "phoneNumber")
-    val phoneNumber: String,
+    val phoneNumber: String? = null,
 ) : Serializable

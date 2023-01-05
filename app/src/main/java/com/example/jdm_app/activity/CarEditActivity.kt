@@ -49,20 +49,43 @@ class CarEditActivity : AppCompatActivity() {
 
 
             CoroutineScope(Dispatchers.IO).launch {
-                val response = CarApi.retrofitService.updateCar(car.id!!, car)
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
-                        finish()
-                    } else {
-                        // Error occurred while updating car
-                        Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
+
+                if(car.id == null){
+                    val response = CarApi.retrofitService.createCar(car)
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {
+                            // Error occurred while updating car
+                            Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
+                else{
+                    val response = CarApi.retrofitService.updateCar(car.id!!, car)
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {
+                            // Error occurred while updating car
+                            Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+
+
             }
         }
 
         binding.buttonDelete.setOnClickListener {
+
+            if(car.id == null){
+                finish()
+            }
+
             CoroutineScope(Dispatchers.IO).launch {
                 val response = CarApi.retrofitService.deleteCar(car.id!!)
                 withContext(Dispatchers.Main) {
