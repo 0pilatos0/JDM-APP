@@ -58,12 +58,11 @@
             android:layout_height="wrap_content"
             android:text="Back" />
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recycler_view_car_images" />
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_view_car_images"
+            />
 </LinearLayout>
 
 

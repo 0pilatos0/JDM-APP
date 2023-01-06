@@ -29,7 +29,9 @@ class CarDetailActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.recyclerViewCarImages.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        binding.recyclerViewCarImages.layoutManager = layoutManager
         binding.recyclerViewCarImages.adapter = ImageAdapter(car.images as MutableList<String>)
     }
 }

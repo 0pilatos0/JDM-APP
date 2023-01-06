@@ -35,7 +35,7 @@ data class Car(
     var description: String? = null,
 
     @Json(name = "images")
-    val images: MutableList<String>? = mutableListOf(),
+    var images: MutableList<String>? = mutableListOf(),
 
 
     ) : Serializable

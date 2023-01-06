@@ -5,9 +5,12 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Base64
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.CarEditBinding
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.service.CarApi
@@ -122,29 +125,31 @@ class CarEditActivity : AppCompatActivity() {
         }
 
         binding.buttonSelectImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(intent, SELECT_IMAGE_REQUEST_CODE)
+        }
+
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        binding.recyclerViewCarImages.layoutManager = layoutManager
+        binding.recyclerViewCarImages.adapter = ImageAdapter(car.images as MutableList<String>)
+
+        binding.buttonClearImages.setOnClickListener {
+            car.images = mutableListOf()
+binding.recyclerViewCarImages.adapter = ImageAdapter(car.images as MutableList<String>)
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val selectedImageUri = data?.data
-            val inputStream = contentResolver.openInputStream(selectedImageUri ?: return)
-            val imageBytes = inputStream.use { it?.readBytes() }
-            val imageBitmap =
-                imageBytes?.let { BitmapFactory.decodeByteArray(imageBytes, 0, it.size) }
+            val imageBitmap = data?.extras?.get("data") as Bitmap
             val outputStream = ByteArrayOutputStream()
-            imageBitmap?.let { Bitmap.createScaledBitmap(it, 32, 32, false) }
-                ?.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            val scaledImageBitmap = Bitmap.createScaledBitmap(imageBitmap, 128, 128, false)
+            scaledImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
             val scaledImageBytes = outputStream.toByteArray()
 
             val imageBase64 = Base64.encodeToString(scaledImageBytes, Base64.NO_WRAP)
-
-
             car.images?.add(imageBase64)
-
         }
     }
 }

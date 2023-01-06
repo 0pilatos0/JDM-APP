@@ -68,6 +68,12 @@
         android:contentDescription="image"
         android:src="@drawable/ic_baseline_camera_alt_24" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_view_car_images"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,6 +92,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="2sp"
             android:text="Delete" />
+        <Button
+            android:id="@+id/button_clear_images"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:text="Clear Images" />
     </LinearLayout>
 
     <Button
