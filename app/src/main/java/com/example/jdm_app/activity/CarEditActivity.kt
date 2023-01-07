@@ -59,9 +59,9 @@ class CarEditActivity : AppCompatActivity() {
 
 
         binding.editTextLicensePlate.setText(car.licensePlate)
-        binding.editTextPrice.setText(car.price.toString() ?: "0")
-        binding.editTextCostPerKilometer.setText(car.costPerKilometer.toString() ?: "0")
-        binding.editTextSeats.setText(car.seats.toString() ?: "0")
+        binding.editTextPrice.setText(if(car.price.toString() == "0") "" else car.price.toString())
+        binding.editTextCostPerKilometer.setText(if(car.costPerKilometer.toString() == "0.0") "" else car.costPerKilometer.toString())
+        binding.editTextSeats.setText(if(car.seats.toString() == "0") "" else car.seats.toString())
         binding.editTextDescription.setText(car.description)
 
         binding.buttonBack.setOnClickListener {
