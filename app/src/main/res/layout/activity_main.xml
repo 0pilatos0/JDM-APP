@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
-        android:text="my cars"
+        android:text="@string/my_cars"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

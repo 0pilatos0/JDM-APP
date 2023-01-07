@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">JDM-APP</string>
+    <string name="new_car">New Car</string>
+    <string name="my_cars">My Cars</string>
+    <string name="back">Back</string>
+    <string name="description">Description</string>
+    <string name="color">Color</string>
+    <string name="license_plate">License plate</string>
+    <string name="price">Price</string>
+    <string name="cpk">Cost per kilometer</string>
+    <string name="seats">Seats</string>
+    <string name="image">Image</string>
+    <string name="select_image">Select Image</string>
+    <string name="clear_images">Clear Images</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
 </resources>

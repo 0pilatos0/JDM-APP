@@ -13,14 +13,16 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="description"
-        android:id="@+id/edit_text_description" />
+        android:hint="@string/description"
+        android:id="@+id/edit_text_description"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/edit_text_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Color" />
+        android:inputType="text"
+        android:hint="@string/color" />
 
     <Spinner
         android:id="@+id/edit_spinner_car_type"
@@ -32,40 +34,41 @@
         android:id="@+id/edit_text_license_plate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="License plate" />
+        android:inputType="text"
+        android:hint="@string/license_plate" />
 
     <EditText
         android:id="@+id/edit_text_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="Price" />
+        android:hint="@string/price" />
 
     <EditText
         android:id="@+id/edit_text_cost_per_kilometer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:hint="Cost per kilometer" />
+        android:hint="@string/cpk" />
 
     <EditText
         android:id="@+id/edit_text_seats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="Seats" />
+        android:hint="@string/seats" />
 
     <Button
         android:id="@+id/button_select_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Image" />
+        android:text="@string/select_image" />
 
     <ImageView
         android:id="@+id/image_view_car"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="image"
+        android:contentDescription="@string/image"
         android:src="@drawable/ic_baseline_camera_alt_24" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -84,26 +87,26 @@
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="2sp"
-            android:text="Save" />
+            android:layout_marginEnd="2sp"
+            android:text="@string/save" />
         <Button
             android:id="@+id/button_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2sp"
-            android:text="Delete" />
+            android:layout_marginStart="2sp"
+            android:text="@string/delete" />
         <Button
             android:id="@+id/button_clear_images"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4sp"
-            android:text="Clear Images" />
+            android:layout_marginStart="4sp"
+            android:text="@string/clear_images" />
     </LinearLayout>
 
     <Button
         android:id="@+id/button_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back"
+        android:text="@string/back"
         />
 </LinearLayout>
