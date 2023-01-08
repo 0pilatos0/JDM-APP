@@ -29,11 +29,11 @@ class OwnedCarsActivity : AppCompatActivity() {
         carViewModel.carlist.observe(this) {
             val adapter = OwnedCarAdapter(this, it)
 
-            val recyclerView : RecyclerView = binding.recyclerView
+            val recyclerView: RecyclerView = binding.recyclerView
             recyclerView.adapter = adapter
-            //TODO REPLACE WITH LOGGED IN USER
         }
 
+        //TODO REPLACE WITH LOGGED IN USER
         carViewModel.getCarsByUserId(1)
 
 

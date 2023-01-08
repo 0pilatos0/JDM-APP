@@ -29,20 +29,18 @@ class MainActivity : AppCompatActivity() {
         val carViewModel: CarViewModel by viewModels()
         carViewModel.carlist.observe(this) {
             val adapter = CarAdapter(this, it)
-
-            val recyclerView : RecyclerView = binding.recyclerView
-            recyclerView.adapter = adapter
+            binding.recyclerView.adapter = adapter
         }
 
         binding.myCarsButton.setOnClickListener {
             val intent = Intent(this, OwnedCarsActivity::class.java)
-            this.startActivity(intent)
+            startActivity(intent)
         }
 
-        binding.swipeRefresh.setOnRefreshListener(OnRefreshListener {
+        binding.swipeRefresh.setOnRefreshListener {
             carViewModel.getCars()
             binding.swipeRefresh.isRefreshing = false
-        })
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -53,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.action_cars -> {
                     binding.recyclerView.visibility = RecyclerView.VISIBLE
                     true
-
                 }
                 R.id.action_profile -> {
                     binding.recyclerView.visibility = RecyclerView.GONE

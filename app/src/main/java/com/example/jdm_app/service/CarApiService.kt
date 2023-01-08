@@ -23,7 +23,7 @@ interface CarApiService {
     suspend fun updateCar(@Path("id") id: Int, @Body car: Car): Response<Car>
 
     @DELETE("car/{id}")
-    suspend fun deleteCar(@Path("id") id: Int) : Response<Void>
+    suspend fun deleteCar(@Path("id") id: Int): Response<Void>
 
     @GET("car/{id}")
     suspend fun getCar(@Path("id") id: Int): Response<Car>
@@ -35,7 +35,7 @@ interface CarApiService {
     suspend fun getCarCPK(@Path("id") id: Int): Response<Double>
 }
 
-private val BASE_URL = BuildConfig.BASE_URL
+private const val BASE_URL = BuildConfig.BASE_URL
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())

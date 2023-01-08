@@ -9,8 +9,8 @@ import com.example.jdm_app.activity.CarDetailActivity
 import com.example.jdm_app.databinding.CarItemBinding
 import com.example.jdm_app.domain.Car
 
-
-class CarAdapter(private val context: Context, private val mCars: List<Car>) : RecyclerView.Adapter<CarViewHolder>() {
+class CarAdapter(private val context: Context, private val mCars: List<Car>) :
+    RecyclerView.Adapter<CarViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder {
         val binding: CarItemBinding =
             CarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,24 +25,15 @@ class CarAdapter(private val context: Context, private val mCars: List<Car>) : R
             intent.putExtra("car", car)
             context.startActivity(intent)
         }
-
     }
 
-    override fun getItemCount(): Int {
-        return mCars.size
-    }
+    override fun getItemCount(): Int = mCars.size
 }
 
-class CarViewHolder(binding: CarItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    private val mBinding: CarItemBinding
-
-    init {
-        mBinding = binding
-    }
-
+class CarViewHolder(private val binding: CarItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(car: Car) {
-        mBinding.carType.text = car.carType
-        mBinding.carPrice.text = car.price.toString()
-        mBinding.carBrand.text = car.brand
+        binding.carType.text = car.carType
+        binding.carPrice.text = car.price.toString()
+        binding.carBrand.text = car.brand
     }
 }

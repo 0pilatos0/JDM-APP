@@ -17,6 +17,12 @@ class CarDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val car = intent.getSerializableExtra("car") as Car
+        bindCarData(car)
+        setupBackButton()
+        setupCarImages(car.images as MutableList<String>)
+    }
+
+    private fun bindCarData(car: Car) {
         binding.textViewTitle.text = "${car.color} ${car.brand}"
         binding.textViewDescription.text = "${car.description}"
         binding.textViewCarType.text = "Car type: ${car.carType}"
@@ -24,14 +30,18 @@ class CarDetailActivity : AppCompatActivity() {
         binding.textViewPrice.text = "Price: ${car.price}"
         binding.textViewCostPerKilometer.text = "Cost per kilometer: ${car.costPerKilometer}"
         binding.textViewSeats.text = "Seats: ${car.seats}"
+    }
 
+    private fun setupBackButton() {
         binding.buttonBack.setOnClickListener {
             finish()
         }
+    }
 
+    private fun setupCarImages(images: MutableList<String>) {
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerViewCarImages.layoutManager = layoutManager
-        binding.recyclerViewCarImages.adapter = ImageAdapter(car.images as MutableList<String>)
+        binding.recyclerViewCarImages.adapter = ImageAdapter(images)
     }
 }

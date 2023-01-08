@@ -20,11 +20,11 @@ class ImageAdapter(private val images: MutableList<String>) : RecyclerView.Adapt
         val imageBytes = Base64.decode(image, Base64.DEFAULT)
         val imageBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
         holder.binding.imageView.setImageBitmap(imageBitmap)
-
     }
 
-    override fun getItemCount() = images.size
+    override fun getItemCount(): Int {
+        return images.size
+    }
 
     class ViewHolder(val binding: ImageItemBinding) : RecyclerView.ViewHolder(binding.root)
-
 }
