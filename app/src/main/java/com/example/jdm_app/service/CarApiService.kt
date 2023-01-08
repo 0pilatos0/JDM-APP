@@ -20,6 +20,10 @@ interface CarApiService {
     suspend fun getCarsByUserId(@Path("id") id: Int): Response<List<Car>>
 
     @PUT("car/{id}")
+    // Should be  - user_id: String
+    suspend fun rentCar(@Path("id") id: Int, @Body car: Car, user_id: String): Response<Car>
+
+    @PUT("car/{id}")
     suspend fun updateCar(@Path("id") id: Int, @Body car: Car): Response<Car>
 
     @DELETE("car/{id}")
