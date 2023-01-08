@@ -14,4 +14,7 @@
     <string name="clear_images">Clear Images</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="car_brand">brand</string>
+    <string name="car_type">type</string>
+    <string name="cancel">cancel</string>
 </resources>

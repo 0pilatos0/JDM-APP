@@ -10,6 +10,8 @@ import android.util.Base64
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.jdm_app.R
 import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.CarEditBinding
 import com.example.jdm_app.domain.Car
@@ -64,63 +66,71 @@ class CarEditActivity : AppCompatActivity() {
         binding.editTextSeats.setText(if(car.seats.toString() == "0") "" else car.seats.toString())
         binding.editTextDescription.setText(car.description)
 
-        binding.buttonBack.setOnClickListener {
-            finish()
-        }
-
-        binding.buttonSave.setOnClickListener {
-            car.brand = binding.editSpinnerCarBrand.selectedItem.toString()
-            car.color = binding.editTextColor.text.toString()
-            car.carType = binding.editSpinnerCarType.selectedItem.toString()
-            car.licensePlate = binding.editTextLicensePlate.text.toString()
-            car.price = binding.editTextPrice.text.toString().toInt()
-            car.costPerKilometer = binding.editTextCostPerKilometer.text.toString().toDouble()
-            car.seats = binding.editTextSeats.text.toString().toInt()
-            car.description = binding.editTextDescription.text.toString()
-
-
-            CoroutineScope(Dispatchers.IO).launch {
-                if(car.id == null){
-                    val response = CarApi.retrofitService.createCar(car)
-                    withContext(Dispatchers.Main) {
-                        if (response.isSuccessful) {
-                            Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
-                            finish()
-                        } else {
-                            Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-                else{
-                    val response = CarApi.retrofitService.updateCar(car.id!!, car)
-                    withContext(Dispatchers.Main) {
-                        if (response.isSuccessful) {
-                            Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
-                            finish()
-                        } else {
-                            Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-        }
-
-        binding.buttonDelete.setOnClickListener {
-
-            if(car.id == null){
-                finish()
-            }
-
-            CoroutineScope(Dispatchers.IO).launch {
-                val response = CarApi.retrofitService.deleteCar(car.id!!)
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@CarEditActivity, "Car deleted!", Toast.LENGTH_SHORT).show()
+        binding.bottomCarEditNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_delete -> {
+                    if(car.id == null){
                         finish()
-                    } else {
-                        Toast.makeText(this@CarEditActivity, "Error occurred while deleting car!", Toast.LENGTH_SHORT).show()
                     }
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val response = CarApi.retrofitService.deleteCar(car.id!!)
+                        withContext(Dispatchers.Main) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(this@CarEditActivity, "Car deleted!", Toast.LENGTH_SHORT).show()
+                                finish()
+                            } else {
+                                Toast.makeText(this@CarEditActivity, "Error occurred while deleting car!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    true
                 }
+
+                R.id.action_cancel -> {
+                    finish()
+                    true
+                }
+
+                R.id.action_save ->{
+                    car.brand = binding.editSpinnerCarBrand.selectedItem.toString()
+                    car.color = binding.editTextColor.text.toString()
+                    car.carType = binding.editSpinnerCarType.selectedItem.toString()
+                    car.licensePlate = binding.editTextLicensePlate.text.toString()
+                    car.price = binding.editTextPrice.text.toString().toInt()
+                    car.costPerKilometer = binding.editTextCostPerKilometer.text.toString().toDouble()
+                    car.seats = binding.editTextSeats.text.toString().toInt()
+                    car.description = binding.editTextDescription.text.toString()
+
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        if(car.id == null){
+                            val response = CarApi.retrofitService.createCar(car)
+                            withContext(Dispatchers.Main) {
+                                if (response.isSuccessful) {
+                                    Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
+                                    finish()
+                                } else {
+                                    Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                        else{
+                            val response = CarApi.retrofitService.updateCar(car.id!!, car)
+                            withContext(Dispatchers.Main) {
+                                if (response.isSuccessful) {
+                                    Toast.makeText(this@CarEditActivity, "Car updated!", Toast.LENGTH_SHORT).show()
+                                    finish()
+                                } else {
+                                    Toast.makeText(this@CarEditActivity, "Error occurred while updating car!", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+                    true
+                }
+
+                else -> false
             }
         }
 
