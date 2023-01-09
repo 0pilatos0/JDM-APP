@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="car_types" >
+        <item>ICE</item>
+        <item>BEV</item>
+        <item>FCEV</item>
+    </string-array>
+
+    <string-array name="car_brands">
+        <item>Audi</item>
+        <item>Bentley</item>
+        <item>BMW</item>
+        <item>Buick</item>
+        <item>Cadillac</item>
+        <item>Chevrolet</item>
+        <item>Chrysler</item>
+        <item>Fiat</item>
+        <item>Ford</item>
+    </string-array>
+</resources>
