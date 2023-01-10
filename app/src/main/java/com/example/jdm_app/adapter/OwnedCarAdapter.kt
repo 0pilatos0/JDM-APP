@@ -12,11 +12,29 @@ import com.example.jdm_app.domain.Car
 
 class OwnedCarAdapter(private val context: Context, private val mCars: List<Car>) :
     RecyclerView.Adapter<OwnedCarViewHolder>() {
+
+    /**
+     * Creates a new instance of `OwnedCarViewHolder` by inflating the layout defined in `CarItemBinding` and passing
+     * the inflated view to the `OwnedCarViewHolder`'s constructor.
+     *
+     * @param parent The parent view group the new View will be added to.
+     * @param viewType The view type of the new View.
+     * @return The newly created OwnedCarViewHolder.
+     */
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OwnedCarViewHolder {
         val binding: CarItemBinding =
             CarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return OwnedCarViewHolder(binding)
     }
+
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     *
+     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     *                 item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
 
     override fun onBindViewHolder(holder: OwnedCarViewHolder, position: Int) {
         val car: Car = mCars[position]
@@ -28,12 +46,22 @@ class OwnedCarAdapter(private val context: Context, private val mCars: List<Car>
         }
     }
 
+    /**
+     * Returns the number of items in the data set held by the adapter.
+     *
+     * @return The number of items in the adapter's data set.
+     */
     override fun getItemCount(): Int {
         return mCars.size
     }
 }
 
 class OwnedCarViewHolder(private val binding: CarItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    /**
+     *  Binds the properties of the provided `Car` object to the corresponding views in the layout file.
+     *
+     * @param car The Car object whose properties will be used to populate the view
+     */
     fun bind(car: Car) {
         binding.carType.text = car.carType
         binding.carPrice.text = car.price.toString()

@@ -16,6 +16,17 @@ import com.example.jdm_app.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    /**
+     * Called when the activity is starting.
+     * 1. Inflate the ActivityMainBinding layout
+     * 2. Set the content view to the root of the binding
+     * 3. Set the default selected item for bottomNavigationView
+     * 4. Setup the recycler view layout manager
+     * 5. observe the carViewModel for updates and use the list for the recyclerView adapter
+     * 6. Set up the onClickListener for myCarsButton
+     * 7. Set up the onRefreshListener for swipeRefresh
+     * 8. Set up the onItemSelectedListener for bottomNavigationView and show/hide the recycler view based on the selected item.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

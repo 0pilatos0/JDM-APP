@@ -29,6 +29,14 @@ class CarEditActivity : AppCompatActivity() {
     private val SELECT_IMAGE_REQUEST_CODE = 0
     private lateinit var car: Car
 
+    /**
+     * Called when the activity is starting. It perform the following actions:
+     *  1.  inflate the `CarEditBinding` layout
+     *  2.  set the content view to the root of the binding
+     *  3.  retrieve the passed in `Car` object from the intent extra
+     *  4.  call the methods `bindCarData()`, `setupSpinners()`, `setupNavigation()` and `setupButtons()`
+     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CarEditBinding.inflate(layoutInflater)
@@ -41,6 +49,11 @@ class CarEditActivity : AppCompatActivity() {
         setupButtons()
     }
 
+    /**
+     * Binds the properties of the provided `car` object to the corresponding views in the layout file, also set the RecyclerView layout manager and adapter
+     *
+     * @param car The Car object whose properties will be used to populate the view.
+     */
     private fun bindCarData() {
         binding.editTextColor.setText(car.color)
         binding.editTextLicensePlate.setText(car.licensePlate)
@@ -55,6 +68,9 @@ class CarEditActivity : AppCompatActivity() {
         binding.recyclerViewCarImages.adapter = ImageAdapter(car.images as MutableList<String>)
     }
 
+    /**
+     * Setups up the brand and type spinners with options from the resources and selects the appropriate options based on the current car's brand and type.
+     */
     private fun setupSpinners() {
         val brandAdapter = ArrayAdapter.createFromResource(
             this,
@@ -77,28 +93,35 @@ class CarEditActivity : AppCompatActivity() {
         binding.editSpinnerCarType.setSelection(typePosition)
     }
 
+    /**
+     * Setups up the navigation bar by adding click listeners to the menu items.
+     * Based on the selected menu item, it performs the following actions
+     *      delete - delete the car via API and closes the activity
+     *      cancel - closes the activity without making any changes
+     *      save - update the car properties with the values entered in the form and via API and closes the activity.
+     */
     private fun setupNavigation() {
         binding.bottomCarEditNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_delete -> {
                     if (car.id == null) {
                         finish()
-                    }
-
-                    CoroutineScope(Dispatchers.IO).launch {
-                        val response = CarApi.retrofitService.deleteCar(car.id!!)
-                        withContext(Dispatchers.Main) {
-                            if (response.isSuccessful) {
-                                Toast.makeText(
-                                    this@CarEditActivity, "Car deleted!", Toast.LENGTH_SHORT
-                                ).show()
-                                finish()
-                            } else {
-                                Toast.makeText(
-                                    this@CarEditActivity,
-                                    "Error occurred while deleting car!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                    } else{
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val response = CarApi.retrofitService.deleteCar(car.id!!)
+                            withContext(Dispatchers.Main) {
+                                if (response.isSuccessful) {
+                                    Toast.makeText(
+                                        this@CarEditActivity, "Car deleted!", Toast.LENGTH_SHORT
+                                    ).show()
+                                    finish()
+                                } else {
+                                    Toast.makeText(
+                                        this@CarEditActivity,
+                                        "Error occurred while deleting car!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
                         }
                     }
@@ -164,7 +187,15 @@ class CarEditActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Setups up the buttons in the layout by adding click listeners to them.
+     * On clicking the `Select Image` button, it opens the device's camera app to select an image.
+     * On clicking the `Clear Images` button, it clears all the images associated with the car.
+     */
     private fun setupButtons() {
+        //TODO REENABLE ONCE ITS FIXED
+//        binding.bottomCarEditNavigation.selectedItemId = R.id.action_save
+
         binding.buttonSelectImage.setOnClickListener {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(intent, SELECT_IMAGE_REQUEST_CODE)
@@ -176,6 +207,16 @@ class CarEditActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Overrides the onActivityResult method of the parent class. If the result code is successful
+     * and the request code is SELECT_IMAGE_REQUEST_CODE, it adds the selected image to the car's images
+     * property after compressing and converting to base64.
+     * Also it notify the adapter to update the UI
+     *
+     * @param requestCode The integer request code originally supplied to startActivityForResult(), allowing you to identify who this result came from.
+     * @param resultCode The integer result code returned by the child activity through its setResult().
+     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
