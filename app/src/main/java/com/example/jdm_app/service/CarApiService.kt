@@ -2,7 +2,6 @@ package com.example.jdm_app.service
 
 import com.example.jdm_app.BuildConfig
 import com.example.jdm_app.domain.Car
-import com.example.jdm_app.domain.Reservation
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Response
@@ -28,12 +27,6 @@ interface CarApiService {
 
     @GET("car/{id}")
     suspend fun getCar(@Path("id") id: Int): Response<Car>
-
-    @PUT("car/{id}")
-    suspend fun createReservation(@Body reservation: Reservation): Response<Reservation>
-
-    @PUT("car/{id}")
-    suspend fun updateReservation(@Path("id") id: Int, @Body reservation: Reservation): Response<Reservation>
 
     @GET("car/tco/{id}")
     suspend fun getCarTCO(@Path("id") id: Int): Response<Double>

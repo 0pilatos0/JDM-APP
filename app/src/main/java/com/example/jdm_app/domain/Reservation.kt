@@ -2,17 +2,17 @@ package com.example.jdm_app.domain
 
 import com.squareup.moshi.Json
 import java.io.Serializable
-import java.util.Date
+import java.time.LocalDate
 
 data class Reservation(
     @Json(name = "id")
     val id: Int? = null,
 
     @Json(name = "reservationDate")
-    var reservationDate: Date? = null,
+    var reservationDate: LocalDate? = null,
 
     @Json(name = "returnDate")
-    var returnDate: Date? = null,
+    var returnDate: LocalDate? = null,
 
     @Json(name = "reservationFinal")
     var reservationFinal: Boolean? = null,

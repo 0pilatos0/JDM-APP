@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.CarDetailBinding
 import com.example.jdm_app.domain.Car
-import com.example.jdm_app.service.CarApi
+import com.example.jdm_app.domain.Reservation
+import com.example.jdm_app.service.ReservationApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ import kotlinx.coroutines.withContext
 class CarDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: CarDetailBinding
+    private lateinit var reservation: Reservation
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +37,7 @@ class CarDetailActivity : AppCompatActivity() {
 
         binding.buttonRent.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val response = CarApi.retrofitService.rentCar(car.id!!, car, "user_id")
+                val response = ReservationApi.retrofitService.createReservation(reservation)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@CarDetailActivity, "Car rented!", Toast.LENGTH_SHORT)
