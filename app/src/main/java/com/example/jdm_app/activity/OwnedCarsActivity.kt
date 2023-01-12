@@ -11,7 +11,7 @@ import com.example.jdm_app.view.CarViewModel
 import com.example.jdm_app.adapter.OwnedCarAdapter
 import com.example.jdm_app.databinding.CarsOwnedBinding
 import com.example.jdm_app.domain.Car
-import com.example.jdm_app.domain.User
+import com.example.jdm_app.domain.Customer
 
 
 class OwnedCarsActivity : AppCompatActivity() {
@@ -48,7 +48,7 @@ class OwnedCarsActivity : AppCompatActivity() {
         }
 
         binding.buttonCreate.setOnClickListener {
-            var user = User()
+            var user = Customer()
             var car = Car()
 
             user.id = 1

@@ -1,9 +1,13 @@
 package com.example.jdm_app.domain
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import java.io.Serializable
 
-data class User(
+@Entity(tableName = "customer")
+data class Customer(
+    @PrimaryKey(autoGenerate = true)
     @Json(name = "id")
     var id: Int? = null,
 
