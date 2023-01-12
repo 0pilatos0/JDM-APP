@@ -18,6 +18,9 @@ interface ReservationApiService {
 
     @PUT("reservation/{id}")
     suspend fun updateReservation(@Path("id") id: Int, @Body reservation: Reservation): Response<Reservation>
+
+    @DELETE("reservation/{id}")
+    suspend fun deleteReservationById(reservation: Reservation): Response<Void>
 }
 
 private val BASE_URL = BuildConfig.BASE_URL
