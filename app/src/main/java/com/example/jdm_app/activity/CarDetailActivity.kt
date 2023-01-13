@@ -1,6 +1,7 @@
 package com.example.jdm_app.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,11 +10,6 @@ import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.CarDetailBinding
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.domain.Reservation
-import com.example.jdm_app.service.ReservationApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CarDetailActivity : AppCompatActivity() {
 
@@ -36,22 +32,8 @@ class CarDetailActivity : AppCompatActivity() {
         binding.textViewSeats.text = "Seats: ${car.seats}"
 
         binding.buttonRent.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val response = ReservationApi.retrofitService.createReservation(reservation)
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@CarDetailActivity, "Car rented!", Toast.LENGTH_SHORT)
-                            .show()
-                        finish()
-                    } else {
-                        Toast.makeText(
-                            this@CarDetailActivity,
-                            "Error occurred while renting car!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
+            val intent = Intent(this, ReservationEditActivity::class.java)
+            this.startActivity(intent)
         }
 
         binding.buttonBack.setOnClickListener {
