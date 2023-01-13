@@ -3,6 +3,7 @@ package com.example.jdm_app.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.jdm_app.adapter.LocalDateJsonAdapter
 import com.example.jdm_app.databinding.ReservationEditBinding
 import com.example.jdm_app.domain.Reservation
 import com.example.jdm_app.domain.RentCondition
@@ -37,15 +38,16 @@ class ReservationEditActivity : AppCompatActivity() {
         binding.editTextHouseNumber.setText(rentCondition.houseNumber)
 
         binding.buttonSave.setOnClickListener {
-            reservation.reservationDate = binding.editDateReservationDate.text.toString() as LocalDate
-            reservation.returnDate = binding.editDateReturnDate.text.toString() as LocalDate
-            reservation.reservationFinal = binding.editDateRentDate.text.toString() as Boolean
+            reservation.reservationDate = LocalDate.parse(binding.editDateReservationDate.text.toString(), LocalDateJsonAdapter.FORMATTER)
+            reservation.returnDate = LocalDate.parse(binding.editDateReturnDate.text.toString(), LocalDateJsonAdapter.FORMATTER)
+            reservation.reservationFinal = binding.editDateRentDate.text.toString().toBoolean()
             reservation.termsAndConditions = binding.editTextTermsConditions.text.toString()
 
-            rentCondition.rentDate = binding.editDateRentDate.text.toString() as LocalDate
+            rentCondition.rentDate = LocalDate.parse(binding.editDateRentDate.text.toString(), LocalDateJsonAdapter.FORMATTER)
             rentCondition.postalCode = binding.editTextPostalCode.text.toString()
             rentCondition.houseNumber = binding.editTextHouseNumber.text.toString()
 
+            reservation.rentConditions = rentCondition
             CoroutineScope(Dispatchers.IO).launch {
 
                 val response = ReservationApi.retrofitService.createReservation(reservation)

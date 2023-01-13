@@ -15,7 +15,7 @@ interface ReservationApiService {
     @GET("reservation/user/{id}")
     suspend fun getReservationsByUserId(@Path("id") id: Int): Response<Reservation>
 
-    @PUT("reservation/{id}")
+    @POST("reservation")
     suspend fun createReservation(@Body reservation: Reservation): Response<Reservation>
 
     @PUT("reservation/{id}")
