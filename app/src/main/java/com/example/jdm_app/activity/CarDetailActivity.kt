@@ -11,7 +11,6 @@ import com.example.jdm_app.databinding.CarDetailBinding
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.domain.Reservation
 import com.example.jdm_app.domain.User
-import com.example.jdm_app.domain.User
 
 class CarDetailActivity : AppCompatActivity() {
 
@@ -67,7 +66,7 @@ class CarDetailActivity : AppCompatActivity() {
             intent.putExtra("reservation", reservation)
             this.startActivity(intent)
         }
-
+    }
     /**
      * Setups up the back button by adding a click listener that closes the current activity when clicked.
      */
