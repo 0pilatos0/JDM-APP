@@ -16,9 +16,11 @@ import com.example.jdm_app.databinding.CarsOwnedBinding
 import com.example.jdm_app.databinding.RegistrationPageBinding
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.domain.Customer
+import com.example.jdm_app.service.CustomerApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class RegistrationActivity : AppCompatActivity() {
@@ -28,46 +30,41 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = RegistrationPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
+        val context = this
         binding.registerButton.setOnClickListener {
-//            var user = Customer()
-//            var car = Car()
-//
-//            user.id = 1
-//            car.owner = user
             if (customerIsValid()) {
-                val db = Room.databaseBuilder(
-                    applicationContext,
-                    LocalDatabase::class.java, "local_database"
-                ).build()
-
-                val context = this
                 CoroutineScope(Dispatchers.IO).launch {
-                    val customerDao = db.customerDao()
-                    customerDao.insert(
-                            Customer(
-                            0,
-                            binding.registerUsernameField.text.toString(),
-                            binding.registerDateOfBirthField.text.toString(),
-                            binding.registerAddressField.text.toString(),
-                            binding.registerNumberField.text.toString()
-                        )
+
+
+                    //TODO ECHTE DATA ERIN!!
+                    //id moet null blijven zodat de api deze kan asignen
+
+                    val newCustomer = Customer(
+                        null,
+                        "John" ,                             //binding.registerUsernameField.text.toString(),
+                        "1990-01-01",                       //binding.registerDateOfBirthField.text.toString(),
+                        "1234",                                //binding.registerAddressField.text.toString(),
+                        "1234"                    //binding.registerNumberField.text.toString()
                     )
 
-                    val customer = Customer(
-                        0,
-                        binding.registerUsernameField.text.toString(),
-                        binding.registerDateOfBirthField.text.toString(),
-                        binding.registerAddressField.text.toString(),
-                        binding.registerNumberField.text.toString()
-                    )
+                    val customerResponse = CustomerApi.retrofitService.createCustomer(newCustomer)
 
-                    val intent = Intent(context, RegistrationActivity::class.java)
-                    intent.putExtra("customer", customer)
-                    context.startActivity(intent)
+                    val customer : Customer? = customerResponse.body()
+
+                    //check if customer is a Customer object
+                    if (customer != null) {
+                        val db = Room.databaseBuilder(
+                            applicationContext,
+                            LocalDatabase::class.java, "local_database"
+                        ).build()
+                        val customerDao = db.customerDao()
+                        customerDao.insert(customer)
+
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.putExtra("customer", customer)
+                        context.startActivity(intent)
+                    }
                 }
-
             }
         }
 

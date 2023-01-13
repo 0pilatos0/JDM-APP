@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         isRegistered()
     }
 
@@ -95,14 +94,13 @@ class MainActivity : AppCompatActivity() {
             val customerDao = db.customerDao()
             var customer: Customer = customerDao.getCustomer()
 
-            if (customer == null){
+            if(customer == null && !intent.hasExtra("customer")){
                 val intent = Intent(context, RegistrationActivity::class.java)
                 startActivity(intent)
             }
-            else if(intent.hasExtra("customer")){
-                customer = intent.getSerializableExtra("customer") as Customer
-                val intent = Intent(context, CarDetailActivity::class.java)
-                startActivity(intent)
+
+            if(intent.hasExtra("customer")){
+                // TODO STORE CUSTOMER IN EASY TO ACCESS PLACE without need of coroutines
             }
         }
     }
