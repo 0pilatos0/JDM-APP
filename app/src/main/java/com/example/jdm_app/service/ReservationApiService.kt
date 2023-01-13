@@ -12,7 +12,7 @@ import retrofit2.http.*
 import java.util.*
 
 interface ReservationApiService {
-    @GET("reservation/{id}")
+    @GET("reservation/user/{id}")
     suspend fun getReservationsByUserId(@Path("id") id: Int): Response<Reservation>
 
     @PUT("reservation/{id}")

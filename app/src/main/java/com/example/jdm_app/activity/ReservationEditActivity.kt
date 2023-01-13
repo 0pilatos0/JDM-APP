@@ -24,6 +24,9 @@ class ReservationEditActivity : AppCompatActivity() {
         binding = ReservationEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        reservation = intent.getSerializableExtra("reservation") as Reservation
+        rentCondition = RentCondition()
+
         binding.editDateReservationDate.setText(reservation.reservationDate.toString())
         binding.editDateReturnDate.setText(reservation.termsAndConditions)
         binding.editBoolReservationFinal.setText(reservation.reservationFinal.toString())
