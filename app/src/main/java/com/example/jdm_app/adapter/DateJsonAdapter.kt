@@ -1,22 +1,27 @@
 package com.example.jdm_app.adapter
 
-import com.squareup.moshi.FromJson
-import com.squareup.moshi.ToJson
+import com.squareup.moshi.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
-class DateJsonAdapter {
+class DateJsonAdapter : JsonAdapter<LocalDate>() {
     companion object {
-        private val FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+        private val FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     }
 
-    @ToJson
-    fun toJson(date: Date): String {
-        return FORMAT.format(date)
+    override fun toJson(writer: JsonWriter, value: LocalDate?) {
+        if (value == null) {
+            writer.nullValue()
+            return
+        }
+        writer.value(value.format(FORMAT))
     }
 
-    @FromJson
-    fun fromJson(string: String): Date? {
-        return FORMAT.parse(string)
+    override fun fromJson(reader: JsonReader): LocalDate? {
+        val date = reader.nextString()
+        return LocalDate.parse(date, FORMAT)
+
     }
 }

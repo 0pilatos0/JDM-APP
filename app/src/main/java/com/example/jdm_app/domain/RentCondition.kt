@@ -1,16 +1,15 @@
 package com.example.jdm_app.domain
 
-import com.example.jdm_app.adapter.DateJsonAdapter
 import com.squareup.moshi.Json
 import java.io.Serializable
-import java.util.*
+import java.time.LocalDate
 
 data class RentCondition(
     @Json(name = "id")
     val id: Int? = null,
 
-    @JsonAdapter(DateJsonAdapter::class)
-    var rentDate: Date? = null,
+    @Json(name = "rentDate")
+    var rentDate: LocalDate? = null,
 
     @Json(name = "postalCode")
     var postalCode: String? = null,
