@@ -1,7 +1,7 @@
 package com.example.jdm_app.service
 
 import com.example.jdm_app.BuildConfig
-import com.example.jdm_app.adapter.DateJsonAdapter
+import com.example.jdm_app.adapter.LocalDateJsonAdapter
 import com.example.jdm_app.domain.Reservation
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -29,7 +29,7 @@ private val BASE_URL = BuildConfig.BASE_URL
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
-    .add(Date::class.java, DateJsonAdapter())
+    .add(LocalDateJsonAdapter)
     .build()
 
 private val retrofit = Retrofit.Builder()
