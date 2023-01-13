@@ -25,4 +25,6 @@
     <string name="house_number">House Number</string>
     <string name="reservation_settings">Reservation Settings</string>
     <string name="rent_condition_settings">Rent Condition Settings</string>
+    <string name="car_brand">brand</string>
+    <string name="car_type">type</string>
 </resources>
