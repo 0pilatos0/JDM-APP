@@ -3,7 +3,7 @@ package com.example.jdm_app.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.jdm_app.databinding.RentedCarEditBinding
+import com.example.jdm_app.databinding.ReservationEditBinding
 import com.example.jdm_app.domain.Reservation
 import com.example.jdm_app.domain.RentCondition
 import com.example.jdm_app.service.ReservationApi
@@ -15,13 +15,13 @@ import java.time.LocalDate
 
 class ReservationEditActivity : AppCompatActivity() {
 
-    private lateinit var binding: RentedCarEditBinding
+    private lateinit var binding: ReservationEditBinding
     private lateinit var reservation: Reservation
     private lateinit var rentCondition: RentCondition
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = RentedCarEditBinding.inflate(layoutInflater)
+        binding = ReservationEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.editDateReservationDate.setText(reservation.reservationDate.toString())
@@ -42,6 +42,24 @@ class ReservationEditActivity : AppCompatActivity() {
             rentCondition.rentDate = binding.editDateRentDate.text.toString() as LocalDate
             rentCondition.postalCode = binding.editTextPostalCode.text.toString()
             rentCondition.houseNumber = binding.editTextHouseNumber.text.toString()
+
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val response = ReservationApi.retrofitService.createReservation(reservation)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@ReservationEditActivity, "Car rented!", Toast.LENGTH_SHORT)
+                            .show()
+                        finish()
+                    } else {
+                        Toast.makeText(
+                            this@ReservationEditActivity,
+                            "Error occurred while renting car!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
 
         binding.buttonCancel.setOnClickListener {
