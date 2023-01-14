@@ -25,6 +25,8 @@
     <string name="house_number">House Number</string>
     <string name="reservation_settings">Reservation Settings</string>
     <string name="rent_condition_settings">Rent Condition Settings</string>
-    <string name="car_brand">brand</string>
-    <string name="car_type">type</string>
+    <string name="car_brand">Brand</string>
+    <string name="car_type">Type</string>
+    <string name="template_postal_code">1234AB</string>
+    <string name="template_date">2000–1111–22</string>
 </resources>

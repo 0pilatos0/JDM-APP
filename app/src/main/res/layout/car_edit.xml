@@ -217,13 +217,13 @@
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_car_edit_navigation"
+        android:id="@+id/bottom_edit_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:menu="@menu/bottom_edit_car_menu" />
+        app:menu="@menu/bottom_edit_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

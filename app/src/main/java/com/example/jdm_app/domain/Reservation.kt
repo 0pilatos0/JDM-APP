@@ -15,7 +15,7 @@ data class Reservation(
     var returnDate: LocalDate? = null,
 
     @Json(name = "reservationFinal")
-    var reservationFinal: Boolean? = null,
+    var reservationFinal: Boolean? = false,
 
     @Json(name = "termsAndConditions")
     var termsAndConditions: String? = null,
