@@ -3,7 +3,6 @@ package com.example.jdm_app.activity
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.jdm_app.R
 import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.CarEditBinding
@@ -36,7 +34,6 @@ class CarEditActivity : AppCompatActivity() {
      *  3.  retrieve the passed in `Car` object from the intent extra
      *  4.  call the methods `bindCarData()`, `setupSpinners()`, `setupNavigation()` and `setupButtons()`
      */
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CarEditBinding.inflate(layoutInflater)
@@ -101,7 +98,7 @@ class CarEditActivity : AppCompatActivity() {
      *      save - update the car properties with the values entered in the form and via API and closes the activity.
      */
     private fun setupNavigation() {
-        binding.bottomCarEditNavigation.setOnItemSelectedListener { item ->
+        binding.bottomEditNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_delete -> {
                     if (car.id == null) {
@@ -194,7 +191,7 @@ class CarEditActivity : AppCompatActivity() {
      */
     private fun setupButtons() {
         //TODO REENABLE ONCE ITS FIXED
-//        binding.bottomCarEditNavigation.selectedItemId = R.id.action_save
+//        binding.bottomEditNavigation.selectedItemId = R.id.action_save
 
         binding.buttonSelectImage.setOnClickListener {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)

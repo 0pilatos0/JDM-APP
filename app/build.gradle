@@ -29,7 +29,7 @@ android {
 
         }
         debug {
-            buildConfigField "String", "BASE_URL", '"https://09da-2a02-a450-954b-1-34a8-5752-a6ff-347d.eu.ngrok.io/"'
+            buildConfigField "String", "BASE_URL", '"https://8eb8-77-248-104-138.eu.ngrok.io"'
         }
     }
     compileOptions {

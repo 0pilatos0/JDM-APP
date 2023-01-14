@@ -1,11 +1,14 @@
 package com.example.jdm_app.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.CarDetailBinding
 import com.example.jdm_app.domain.Car
+import com.example.jdm_app.domain.Reservation
+import com.example.jdm_app.domain.User
 
 class CarDetailActivity : AppCompatActivity() {
 
@@ -29,6 +32,19 @@ class CarDetailActivity : AppCompatActivity() {
         bindCarData(car)
         setupBackButton()
         setupCarImages(car.images as MutableList<String>)
+
+        binding.buttonRent.setOnClickListener {
+            var user = User()
+            var reservation = Reservation()
+
+            user.id = 1
+            reservation.renter = user
+            reservation.carListing = car
+
+            val intent = Intent(this, ReservationEditActivity::class.java)
+            intent.putExtra("reservation", reservation)
+            this.startActivity(intent)
+        }
     }
 
     /**
@@ -45,7 +61,6 @@ class CarDetailActivity : AppCompatActivity() {
         binding.textViewCostPerKilometer.text = "Cost per kilometer: ${car.costPerKilometer}"
         binding.textViewSeats.text = "Seats: ${car.seats}"
     }
-
     /**
      * Setups up the back button by adding a click listener that closes the current activity when clicked.
      */

@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_reservation -> {
-                    binding.recyclerView.visibility = RecyclerView.GONE
+                    val intent = Intent(this, ReservationActivity::class.java)
+                    this.startActivity(intent)
                     true
                 }
                 R.id.action_cars -> {
