@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavType
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.service.CarApi
 import com.example.jdm_app.service.ReservationApi
@@ -36,7 +37,12 @@ class CarViewModel : ViewModel() {
     fun getReservationsByUserId(id: Int) {
         viewModelScope.launch {
             val reservations = ReservationApi.retrofitService.getReservationsByUserId(id).body()
-            val cars = listOf(reservations?.carListing)
+            var cars = listOf<java.io.Serializable?>()
+            if (reservations != null) {
+                for (reservation in reservations) {
+                    cars += reservation.carListing
+                }
+            }
             _carList.value = cars as List<Car>?
         }
     }

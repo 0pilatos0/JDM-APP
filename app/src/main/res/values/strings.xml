@@ -29,4 +29,7 @@
     <string name="car_type">Type</string>
     <string name="template_postal_code">1234AB</string>
     <string name="template_date">2000–1111–22</string>
+    <string name="reservations">Reservations</string>
+    <string name="cars">Cars</string>
+    <string name="profile">Profile</string>
 </resources>
