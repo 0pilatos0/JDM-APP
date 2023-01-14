@@ -33,13 +33,11 @@ class OwnedCarsActivity : AppCompatActivity() {
             recyclerView.adapter = adapter
         }
 
-        //TODO REPLACE WITH LOGGED IN USER
-        carViewModel.getCarsByUserId(1)
+        carViewModel.getCarsByUserId(MainActivity.customer?.id!!)
 
 
         binding.swipeRefresh.setOnRefreshListener(OnRefreshListener {
-            //TODO REPLACE WITH LOGGED IN USER
-            carViewModel.getCarsByUserId(1)
+            carViewModel.getCarsByUserId(MainActivity.customer?.id!!)
             binding.swipeRefresh.isRefreshing = false
         })
 
@@ -51,7 +49,7 @@ class OwnedCarsActivity : AppCompatActivity() {
             var user = Customer()
             var car = Car()
 
-            user.id = 1
+            user.id = MainActivity.customer?.id
             car.owner = user
 
             val intent = Intent(this, CarEditActivity::class.java)

@@ -1,26 +1,18 @@
 package com.example.jdm_app.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import com.example.jdm_app.view.CarViewModel
-import com.example.jdm_app.adapter.OwnedCarAdapter
 import com.example.jdm_app.data.LocalDatabase
-import com.example.jdm_app.databinding.CarsOwnedBinding
 import com.example.jdm_app.databinding.RegistrationPageBinding
-import com.example.jdm_app.domain.Car
 import com.example.jdm_app.domain.Customer
 import com.example.jdm_app.service.CustomerApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class RegistrationActivity : AppCompatActivity() {
@@ -35,18 +27,28 @@ class RegistrationActivity : AppCompatActivity() {
             if (customerIsValid()) {
                 CoroutineScope(Dispatchers.IO).launch {
 
+                    val day: Int = binding.registerDateOfBirthField.getDayOfMonth()
+                    val month: Int = binding.registerDateOfBirthField.getMonth()
+                    val year: Int = binding.registerDateOfBirthField.getYear()
+                    val calendar: Calendar = Calendar.getInstance()
+                    calendar.set(year, month, day)
 
-                    //TODO ECHTE DATA ERIN!!
-                    //id moet null blijven zodat de api deze kan asignen
+                    val date = SimpleDateFormat("yyyy-MM-dd")
+                    val formatedDate: String = date.format(calendar.time)
+
 
                     val newCustomer = Customer(
                         null,
-                        "John" ,                             //binding.registerUsernameField.text.toString(),
-                        "1990-01-01",                       //binding.registerDateOfBirthField.text.toString(),
-                        "1234",                                //binding.registerAddressField.text.toString(),
-                        "1234"                    //binding.registerNumberField.text.toString()
+                        binding.registerUsernameField.text.toString(),
+                        formatedDate,
+                        binding.registerAddressField.text.toString(),
+                        binding.registerNumberField.text.toString()
                     )
-
+//
+//                    "John" ,
+//                    "1990-01-01",
+//                    "1234",
+//                    "1234"
                     val customerResponse = CustomerApi.retrofitService.createCustomer(newCustomer)
 
                     val customer : Customer? = customerResponse.body()
@@ -76,10 +78,10 @@ class RegistrationActivity : AppCompatActivity() {
             binding.registerUsernameField.error = "Username is required"
             isValid = false
         }
-        if (binding.registerDateOfBirthField.text.toString().isEmpty()) {
-            binding.registerDateOfBirthField.error = "Date of birth is required"
-            isValid = false
-        }
+//        if (binding.registerDateOfBirthField.isEmpty()) {
+//            binding.registerDateOfBirthField.err = "Date of birth is required"
+//            isValid = false
+//        }
         if (binding.registerAddressField.text.toString().isEmpty()) {
             binding.registerAddressField.error = "Address is required"
             isValid = false

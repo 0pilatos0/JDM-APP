@@ -13,15 +13,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.example.jdm_app.view.CarViewModel
 import com.example.jdm_app.R
 import com.example.jdm_app.adapter.CarAdapter
+import com.example.jdm_app.adapter.CustomerAdapter
 import com.example.jdm_app.data.LocalDatabase
 import com.example.jdm_app.databinding.ActivityMainBinding
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.domain.Customer
 import com.example.jdm_app.service.CarApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.jdm_app.view.CustomerViewModel
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +41,12 @@ class MainActivity : AppCompatActivity() {
         val carViewModel: CarViewModel by viewModels()
         carViewModel.carlist.observe(this) {
             val adapter = CarAdapter(this, it)
+            binding.recyclerView.adapter = adapter
+        }
+
+        val customerViewModel: CustomerViewModel by viewModels()
+        customerViewModel.customer.observe(this) {
+            val adapter = it?.let { it1 -> CustomerAdapter(this, it1) }
             binding.recyclerView.adapter = adapter
         }
 
@@ -100,9 +105,16 @@ class MainActivity : AppCompatActivity() {
             }
 
             if(intent.hasExtra("customer")){
-                // TODO STORE CUSTOMER IN EASY TO ACCESS PLACE without need of coroutines
+                customer = intent.getSerializableExtra("customer")
+                        as Customer
+
+                MainActivity.customer = customer
             }
         }
+    }
+
+    companion object CustomerObject {
+        var customer: Customer? = null
     }
 
 }
