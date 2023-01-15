@@ -9,6 +9,7 @@
         android:id="@+id/text_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/register_username"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -19,6 +20,7 @@
         android:textSize="18sp"
         android:layout_marginTop="8dp"
         android:datePickerMode="spinner"
+        android:hint="@string/register_date_of_birth"
         android:calendarViewShown="false"
         />
     <EditText
@@ -26,12 +28,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:hint="@string/register_address"
         android:layout_marginTop="8dp" />
     <EditText
         android:id="@+id/text_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:hint="@string/register_phone_number"
         android:layout_marginTop="8dp" />
 
     <Button
