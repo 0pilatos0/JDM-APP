@@ -36,7 +36,7 @@
     <string name="rent">Rent</string>
     <string name="reservation_date">Reservation Date</string>
     <string name="return_date">Return Date</string>
-    <string name="reservation_final" translatable="false">Reservation Final</string>
+    <string name="reservation_final" translatable="false">Finalize Reservation</string>
     <string name="terms_conditions">Terms And Conditions</string>
     <string name="rent_date">Rent Date</string>
     <string name="postal_code">Postal Code</string>
