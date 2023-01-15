@@ -29,7 +29,7 @@ data class Car(
     var seats: Int? = 0,
 
     @Json(name = "owner")
-    var owner: User? = null,
+    var owner: Customer? = null,
 
     @Json(name = "description")
     var description: String? = null,

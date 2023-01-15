@@ -11,7 +11,7 @@ import com.example.jdm_app.view.CarViewModel
 import com.example.jdm_app.adapter.OwnedCarAdapter
 import com.example.jdm_app.databinding.CarsOwnedBinding
 import com.example.jdm_app.domain.Car
-import com.example.jdm_app.domain.User
+import com.example.jdm_app.domain.Customer
 
 
 class OwnedCarsActivity : AppCompatActivity() {
@@ -43,13 +43,11 @@ class OwnedCarsActivity : AppCompatActivity() {
             recyclerView.adapter = adapter
         }
 
-        //TODO REPLACE WITH LOGGED IN USER
-        carViewModel.getCarsByUserId(1)
+        carViewModel.getCarsByUserId(MainActivity.customer?.id!!)
 
 
         binding.swipeRefresh.setOnRefreshListener(OnRefreshListener {
-            //TODO REPLACE WITH LOGGED IN USER
-            carViewModel.getCarsByUserId(1)
+            carViewModel.getCarsByUserId(MainActivity.customer?.id!!)
             binding.swipeRefresh.isRefreshing = false
         })
 
@@ -58,10 +56,10 @@ class OwnedCarsActivity : AppCompatActivity() {
         }
 
         binding.buttonCreate.setOnClickListener {
-            var user = User()
+            var user = Customer()
             var car = Car()
 
-            user.id = 1
+            user.id = MainActivity.customer?.id
             car.owner = user
 
             val intent = Intent(this, CarEditActivity::class.java)

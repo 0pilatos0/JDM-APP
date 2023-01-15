@@ -29,7 +29,7 @@ android {
 
         }
         debug {
-            buildConfigField "String", "BASE_URL", '"https://e1c8-77-248-104-138.eu.ngrok.io"'
+            buildConfigField "String", "BASE_URL", '"https://4504-217-103-132-93.eu.ngrok.io"'
         }
     }
     compileOptions {
@@ -54,6 +54,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'io.mockk:mockk:1.10.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
     testImplementation 'org.robolectric:robolectric:4.9'
 
@@ -69,4 +71,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.activity:activity-ktx:1.6.1'
+
+    //Room
+    implementation("androidx.room:room-runtime:2.4.3")
+    annotationProcessor("androidx.room:room-compiler:2.4.3")
+    kapt("androidx.room:room-compiler:2.4.3")
 }

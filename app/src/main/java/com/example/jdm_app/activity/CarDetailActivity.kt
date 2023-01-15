@@ -8,7 +8,7 @@ import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.CarDetailBinding
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.domain.Reservation
-import com.example.jdm_app.domain.User
+import com.example.jdm_app.domain.Customer
 
 class CarDetailActivity : AppCompatActivity() {
 
@@ -55,10 +55,10 @@ class CarDetailActivity : AppCompatActivity() {
      */
     private fun setupRentButton(car: Car) {
         binding.buttonRent.setOnClickListener {
-            var user = User()
+            var user = Customer()
             var reservation = Reservation()
 
-            user.id = 1
+            user.id = MainActivity.customer?.id
             reservation.renter = user
             reservation.carListing = car
 
