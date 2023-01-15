@@ -17,6 +17,16 @@ import com.example.jdm_app.domain.Customer
 class OwnedCarsActivity : AppCompatActivity() {
     private lateinit var binding: CarsOwnedBinding
 
+    /**
+     * Called when the activity is starting.
+     * 1. Inflate the `CarsOwnedBinding` layout.
+     * 2. Set the content view to the root of the binding.
+     * 3. Setups up the recyclerView by creating LinearLayoutManager and adding the adapter to the recyclerView.
+     * 4. Observes the carlist in the CarViewModel and binds it to the adapter of the recyclerView
+     * 5. When the swipeRefresh is triggered, the cars are fetched by userId.
+     * 6. The back button is setup to close the current activity when clicked.
+     * 7. The create button is setup to start the CarEditActivity and pass a new car object to it with owner set as the logged in user.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CarsOwnedBinding.inflate(layoutInflater)

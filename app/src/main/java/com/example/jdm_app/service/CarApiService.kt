@@ -13,11 +13,11 @@ interface CarApiService {
     @GET("car")
     suspend fun getCars(): Response<List<Car>>
 
-    @POST("car")
-    suspend fun createCar(@Body car: Car): Response<Car>
-
     @GET("car/user/{id}")
     suspend fun getCarsByUserId(@Path("id") id: Int): Response<List<Car>>
+
+    @POST("car")
+    suspend fun createCar(@Body car: Car): Response<Car>
 
     @PUT("car/{id}")
     suspend fun updateCar(@Path("id") id: Int, @Body car: Car): Response<Car>
