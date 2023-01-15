@@ -96,6 +96,9 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         isRegistered()
+
+        val carViewModel: CarViewModel by viewModels()
+        carViewModel.getCars()
     }
 
     /**
