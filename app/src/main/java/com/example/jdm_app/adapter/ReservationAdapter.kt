@@ -5,12 +5,12 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.jdm_app.activity.CarDetailActivity
+import com.example.jdm_app.activity.ReservationDetailActivity
 import com.example.jdm_app.databinding.CarItemBinding
-import com.example.jdm_app.domain.Car
+import com.example.jdm_app.domain.Reservation
 
 
-class ReservationAdapter(private val context: Context, private val mCars: List<Car>) : RecyclerView.Adapter<ReservationViewHolder>() {
+class ReservationAdapter(private val context: Context, private val mReservations: List<Reservation>) : RecyclerView.Adapter<ReservationViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationViewHolder {
         val binding: CarItemBinding =
             CarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,18 +18,18 @@ class ReservationAdapter(private val context: Context, private val mCars: List<C
     }
 
     override fun onBindViewHolder(holder: ReservationViewHolder, position: Int) {
-        val car: Car = mCars[position]
-        holder.bind(car)
+        val reservation: Reservation = mReservations[position]
+        holder.bind(reservation)
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, CarDetailActivity::class.java)
-            intent.putExtra("car", car)
+            val intent = Intent(context, ReservationDetailActivity::class.java)
+            intent.putExtra("reservation", reservation)
             context.startActivity(intent)
         }
 
     }
 
     override fun getItemCount(): Int {
-        return mCars.size
+        return mReservations.size
     }
 }
 
@@ -40,9 +40,9 @@ class ReservationViewHolder(binding: CarItemBinding) : RecyclerView.ViewHolder(b
         mBinding = binding
     }
 
-    fun bind(car: Car) {
-        mBinding.carType.text = car.carType
-        mBinding.carPrice.text = car.price.toString()
-        mBinding.carBrand.text = car.brand
+    fun bind(reservation: Reservation) {
+        mBinding.carType.text = reservation.carListing?.carType
+        mBinding.carPrice.text = reservation.carListing?.price.toString()
+        mBinding.carBrand.text = reservation.carListing?.brand
     }
 }

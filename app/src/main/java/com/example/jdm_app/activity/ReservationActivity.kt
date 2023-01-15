@@ -7,9 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jdm_app.R
-import com.example.jdm_app.view.CarViewModel
+import com.example.jdm_app.adapter.CarAdapter
 import com.example.jdm_app.adapter.ReservationAdapter
 import com.example.jdm_app.databinding.ReservationsBinding
+import com.example.jdm_app.view.ReservationViewModel
 
 
 class ReservationActivity : AppCompatActivity() {
@@ -23,17 +24,16 @@ class ReservationActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 
-        val carViewModel: CarViewModel by viewModels()
-        carViewModel.carlist.observe(this) {
+        val reservationViewModel: ReservationViewModel by viewModels()
+        reservationViewModel.reservationlist.observe(this) {
             val adapter = ReservationAdapter(this, it)
-
-            val recyclerView : RecyclerView = binding.recyclerView
-            recyclerView.adapter = adapter
-            //TODO REPLACE WITH LOGGED IN USER
+            binding.recyclerView.adapter = adapter
+            reservationViewModel.getReservationsByUserId(1)
         }
 
         binding.swipeRefresh.setOnRefreshListener {
-            carViewModel.getReservationsByUserId(1)
+            //TODO REPLACE WITH LOGGED IN USER
+            reservationViewModel.getReservationsByUserId(1)
             binding.swipeRefresh.isRefreshing = false
         }
 
