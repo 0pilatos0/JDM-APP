@@ -12,14 +12,14 @@ data class Customer(
     var id: Int? = null,
 
     @Json(name = "username")
-    val username: String? = null,
+    var username: String? = null,
 
     @Json(name = "dateOfBirth")
-    val dateOfBirth: String? = null,
+    var dateOfBirth: String? = null,
 
     @Json(name = "address")
-    val address: String? = null,
+    var address: String? = null,
 
     @Json(name = "phoneNumber")
-    val phoneNumber: String? = null,
+    var phoneNumber: String? = null,
 ) : Serializable

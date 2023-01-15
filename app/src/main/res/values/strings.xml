@@ -35,4 +35,5 @@
     <string name="delete">Delete</string>
     <string name="car_brand">brand</string>
     <string name="car_type">type</string>
+    <string name="edit">Edit</string>
 </resources>

@@ -72,6 +72,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.action_profile -> {
                     binding.recyclerView.visibility = RecyclerView.GONE
+                    val intent = Intent(this, CustomerDetailActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
@@ -108,6 +110,9 @@ class MainActivity : AppCompatActivity() {
                 customer = intent.getSerializableExtra("customer")
                         as Customer
 
+                MainActivity.customer = customer
+            } else
+            {
                 MainActivity.customer = customer
             }
         }
