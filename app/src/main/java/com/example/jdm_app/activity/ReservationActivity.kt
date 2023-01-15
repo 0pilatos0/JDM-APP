@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jdm_app.R
-import com.example.jdm_app.adapter.CarAdapter
 import com.example.jdm_app.adapter.ReservationAdapter
 import com.example.jdm_app.databinding.ReservationsBinding
 import com.example.jdm_app.view.ReservationViewModel
@@ -28,8 +27,10 @@ class ReservationActivity : AppCompatActivity() {
         reservationViewModel.reservationlist.observe(this) {
             val adapter = ReservationAdapter(this, it)
             binding.recyclerView.adapter = adapter
-            reservationViewModel.getReservationsByUserId(1)
         }
+
+        //TODO REPLACE WITH LOGGED IN USER
+        reservationViewModel.getReservationsByUserId(1)
 
         binding.swipeRefresh.setOnRefreshListener {
             //TODO REPLACE WITH LOGGED IN USER
