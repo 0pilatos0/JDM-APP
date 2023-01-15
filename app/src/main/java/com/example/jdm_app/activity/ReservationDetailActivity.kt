@@ -1,12 +1,17 @@
 package com.example.jdm_app.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.jdm_app.adapter.ImageAdapter
 import com.example.jdm_app.databinding.ReservationDetailBinding
 import com.example.jdm_app.domain.Reservation
+import com.example.jdm_app.service.ReservationApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ReservationDetailActivity : AppCompatActivity() {
 
@@ -14,12 +19,11 @@ class ReservationDetailActivity : AppCompatActivity() {
 
     /**
      * Called when the activity is starting.
-     * 1. Inflate the `CarDetailBinding` layout.
+     * 1. Inflate the `ReservationDetailBinding` layout.
      * 2. Set the content view to the root of the binding.
      * 3. Retrieve the passed in `Car` object from the intent extra
-     * 4. Call the method `bindCarData(car)` to populate the views with the car data
+     * 4. Call the method `bindReservationData(reservation)` to populate the views with the car data
      * 5. Call the method `setupBackButton()` to setup the back button functionality.
-     * 6. Call the method `setupCarImages(car.images)` to show the images of the car in the view.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +32,7 @@ class ReservationDetailActivity : AppCompatActivity() {
 
         val reservation = intent.getSerializableExtra("reservation") as Reservation
         bindReservationData(reservation)
-        setupEditButton()
+        setupEditButton(reservation)
         setupBackButton()
     }
 
@@ -38,6 +42,7 @@ class ReservationDetailActivity : AppCompatActivity() {
      * @param reservation The Reservation object whose properties will be used to populate the view.
      */
     private fun bindReservationData(reservation: Reservation) {
+        // Car information
         binding.textViewTitle.text = "${reservation.carListing?.color} ${reservation.carListing?.brand}"
         binding.textViewDescription.text = "${reservation.carListing?.description}"
         binding.textViewCarType.text = "Car type: ${reservation.carListing?.carType}"
@@ -46,24 +51,56 @@ class ReservationDetailActivity : AppCompatActivity() {
         binding.textViewCostPerKilometer.text = "Cost per kilometer: ${reservation.carListing?.costPerKilometer}"
         binding.textViewSeats.text = "Seats: ${reservation.carListing?.seats}"
 
-        binding.textViewReturnDate.text = "${reservation.returnDate}"
-        binding.textViewReservationFinal.text = "Car type: ${reservation.reservationFinal}"
-        binding.textViewTermsCondition.text = "License plate: ${reservation.termsAndConditions}"
-        binding.textViewRentDate.text = "Price: ${reservation.rentConditions?.rentDate}"
-        binding.textViewPostalCode.text = "Cost per kilometer: ${reservation.rentConditions?.postalCode}"
-        binding.textViewHouseNumber.text = "Seats: ${reservation.rentConditions?.houseNumber}"
+        // Reservation information
+        binding.textViewReservationDate.text = "Reservation date: ${reservation.reservationDate}"
+        binding.textViewRentDate.text = "Rent date: ${reservation.rentConditions?.rentDate}"
+        binding.textViewReturnDate.text = "Return date: ${reservation.returnDate}"
+        binding.textViewPostalCode.text = "Postal Code: ${reservation.rentConditions?.postalCode}"
+        binding.textViewHouseNumber.text = "House number: ${reservation.rentConditions?.houseNumber}"
+        binding.textViewReservationFinal.text = "Reservation finalised: ${if (reservation.reservationFinal!!) "Yes" else "No"}"
+
+        binding.textViewTermsCondition.text = "Terms and conditions: ${reservation.termsAndConditions}"
+
+        binding.buttonEdit.text = "${if (reservation.reservationFinal!!) "Delete" else "Edit"}"
+        binding.buttonEdit.setBackgroundColor(Color.parseColor(if (reservation.reservationFinal!!) "#FFB33A3A" else "#FF4CAF50"))
     }
 
     /**
      * Setups up the back button by adding a click listener that closes the current activity when clicked.
      */
-    private fun setupEditButton() {
+    private fun setupEditButton(reservation: Reservation) {
         binding.buttonEdit.setOnClickListener {
-            var reservation = Reservation()
+            if (binding.buttonEdit.text == "Edit") {
+                val intent = Intent(this, ReservationEditActivity::class.java)
+                intent.putExtra("reservation", reservation)
+                this.startActivity(intent)
 
-            val intent = Intent(this, ReservationEditActivity::class.java)
-            intent.putExtra("reservation", reservation)
-            this.startActivity(intent)
+            } else {
+                if (reservation.id == null) {
+                    finish()
+                } else {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val response =
+                            ReservationApi.retrofitService.deleteReservation(reservation.id)
+                        withContext(Dispatchers.Main) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(
+                                    this@ReservationDetailActivity,
+                                    "Reservation deleted!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                finish()
+                            } else {
+                                Toast.makeText(
+                                    this@ReservationDetailActivity,
+                                    "Error occurred while deleting reservation!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

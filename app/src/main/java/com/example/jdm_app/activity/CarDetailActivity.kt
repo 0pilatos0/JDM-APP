@@ -30,21 +30,9 @@ class CarDetailActivity : AppCompatActivity() {
 
         val car = intent.getSerializableExtra("car") as Car
         bindCarData(car)
+        setupRentButton(car)
         setupBackButton()
         setupCarImages(car.images as MutableList<String>)
-
-        binding.buttonRent.setOnClickListener {
-            var user = User()
-            var reservation = Reservation()
-
-            user.id = 1
-            reservation.renter = user
-            reservation.carListing = car
-
-            val intent = Intent(this, ReservationEditActivity::class.java)
-            intent.putExtra("reservation", reservation)
-            this.startActivity(intent)
-        }
     }
 
     /**
@@ -61,6 +49,25 @@ class CarDetailActivity : AppCompatActivity() {
         binding.textViewCostPerKilometer.text = "Cost per kilometer: ${car.costPerKilometer}"
         binding.textViewSeats.text = "Seats: ${car.seats}"
     }
+
+    /**
+     * Setups up the back button by adding a click listener that closes the current activity when clicked.
+     */
+    private fun setupRentButton(car: Car) {
+        binding.buttonRent.setOnClickListener {
+            var user = User()
+            var reservation = Reservation()
+
+            user.id = 1
+            reservation.renter = user
+            reservation.carListing = car
+
+            val intent = Intent(this, ReservationEditActivity::class.java)
+            intent.putExtra("reservation", reservation)
+            this.startActivity(intent)
+        }
+    }
+
     /**
      * Setups up the back button by adding a click listener that closes the current activity when clicked.
      */

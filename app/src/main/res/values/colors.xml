@@ -23,7 +23,7 @@
     <color name="colorOnSecondary">#FF000000</color>
     <color name="colorOnBackground">#FF000000</color>
 
-
+    <color name="colorWarning">#FFB33A3A</color>
 
 
 </resources>

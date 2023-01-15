@@ -122,11 +122,25 @@
                     android:inputType="number" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_car_images"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@+id/edit_checkbox_reservation_final"
+                    android:text="@string/reservation_final"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <CheckBox
+                    android:id="@+id/edit_checkbox_reservation_final"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

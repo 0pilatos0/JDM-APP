@@ -22,7 +22,7 @@ interface ReservationApiService {
     suspend fun updateReservation(@Path("id") id: Int, @Body reservation: Reservation): Response<Reservation>
 
     @DELETE("reservation/{id}")
-    suspend fun deleteReservationById(reservation: Reservation): Response<Void>
+    suspend fun deleteReservation(@Path("id") id: Int): Response<Void>
 }
 
 private val BASE_URL = BuildConfig.BASE_URL
