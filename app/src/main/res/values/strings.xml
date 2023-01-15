@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Rent My Awesome Car</string>
-    <string name="rmac_logo">RMAC LOGO</string>
+    <string name="app_name" translatable="false">Rent My Awesome Car</string>
+    <string name="rmac_logo" translatable="false">RMAC LOGO</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -18,7 +18,7 @@
     <string name="log_in">Log in</string>
     <string name="register_btn">Register</string>
     <string name="log_in_btn">Log in</string>
-    <string name="rmac">rmac</string>
+    <string name="rmac" translatable="false">rmac</string>
     <string name="new_car">New Car</string>
     <string name="my_cars">My Cars</string>
     <string name="back">Back</string>
@@ -36,7 +36,7 @@
     <string name="rent">Rent</string>
     <string name="reservation_date">Reservation Date</string>
     <string name="return_date">Return Date</string>
-    <string name="reservation_final">Reservation Final</string>
+    <string name="reservation_final" translatable="false">Reservation Final</string>
     <string name="terms_conditions">Terms And Conditions</string>
     <string name="rent_date">Rent Date</string>
     <string name="postal_code">Postal Code</string>

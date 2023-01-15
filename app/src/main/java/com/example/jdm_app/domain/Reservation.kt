@@ -24,7 +24,7 @@ data class Reservation(
     var rentConditions: RentCondition? = null,
 
     @Json(name = "renter")
-    var renter: User? = null,
+    var renter: Customer? = null,
 
     @Json(name = "carListing")
     var carListing: Car? = null,
