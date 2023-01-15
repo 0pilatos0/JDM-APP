@@ -13,7 +13,7 @@ import java.util.*
 
 interface ReservationApiService {
     @GET("reservation/user/{id}")
-    suspend fun getReservationsByUserId(@Path("id") id: Int): Response<Reservation>
+    suspend fun getReservationsByUserId(@Path("id") id: Int): Response<List<Reservation>>
 
     @POST("reservation")
     suspend fun createReservation(@Body reservation: Reservation): Response<Reservation>

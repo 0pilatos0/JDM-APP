@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.service.CarApi
-import com.example.jdm_app.service.ReservationApi
 import kotlinx.coroutines.launch
 
 class CarViewModel : ViewModel() {
@@ -30,14 +29,6 @@ class CarViewModel : ViewModel() {
         viewModelScope.launch {
             val cars = CarApi.retrofitService.getCarsByUserId(id).body()
             _carList.value = cars ?: emptyList()
-        }
-    }
-
-    fun getReservationsByUserId(id: Int) {
-        viewModelScope.launch {
-            val reservations = ReservationApi.retrofitService.getReservationsByUserId(id).body()
-            val cars = listOf(reservations?.carListing)
-            _carList.value = cars as List<Car>?
         }
     }
 }

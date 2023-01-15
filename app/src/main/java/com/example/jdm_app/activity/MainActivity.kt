@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.example.jdm_app.view.CarViewModel
 import com.example.jdm_app.R
 import com.example.jdm_app.adapter.CarAdapter
@@ -61,7 +60,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_cars -> {
-                    binding.recyclerView.visibility = RecyclerView.VISIBLE
+                    val intent = Intent(this, MainActivity::class.java)
+                    this.startActivity(intent)
                     true
                 }
                 R.id.action_profile -> {
