@@ -27,7 +27,7 @@ internal class CarApiTest{
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `getCar should return a car`() = runTest  {
-      val car = CarApi.retrofitService.getCar(4).body()
+        val car = CarApi.retrofitService.getCar(5).body()
         advanceUntilIdle()
         assertNotNull(car)
     }
