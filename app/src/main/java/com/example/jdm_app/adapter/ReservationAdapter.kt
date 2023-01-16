@@ -10,7 +10,9 @@ import com.example.jdm_app.databinding.CarItemBinding
 import com.example.jdm_app.domain.Reservation
 
 
-class ReservationAdapter(private val context: Context, private val mReservations: List<Reservation>) : RecyclerView.Adapter<ReservationViewHolder>() {
+class ReservationAdapter(
+    private val context: Context, private val mReservations: List<Reservation>
+) : RecyclerView.Adapter<ReservationViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationViewHolder {
         val binding: CarItemBinding =
             CarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

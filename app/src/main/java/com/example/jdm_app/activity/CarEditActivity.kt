@@ -70,9 +70,7 @@ class CarEditActivity : AppCompatActivity() {
      */
     private fun setupSpinners() {
         val brandAdapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.car_brands,
-            android.R.layout.simple_spinner_item
+            this, R.array.car_brands, android.R.layout.simple_spinner_item
         )
         brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.editSpinnerCarBrand.adapter = brandAdapter
@@ -80,9 +78,7 @@ class CarEditActivity : AppCompatActivity() {
         binding.editSpinnerCarBrand.setSelection(brandPosition)
 
         val typeAdapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.car_types,
-            android.R.layout.simple_spinner_item
+            this, R.array.car_types, android.R.layout.simple_spinner_item
         )
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.editSpinnerCarType.adapter = typeAdapter
@@ -103,7 +99,7 @@ class CarEditActivity : AppCompatActivity() {
                 R.id.action_delete -> {
                     if (car.id == null) {
                         finish()
-                    } else{
+                    } else {
                         CoroutineScope(Dispatchers.IO).launch {
                             val response = CarApi.retrofitService.deleteCar(car.id!!)
                             withContext(Dispatchers.Main) {

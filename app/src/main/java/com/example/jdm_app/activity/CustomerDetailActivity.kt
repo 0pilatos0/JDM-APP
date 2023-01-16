@@ -77,32 +77,32 @@ class CustomerDetailActivity : AppCompatActivity() {
     }
 
     private fun setupDeleteButton() {
-       binding.buttonDelete.setOnClickListener {
-           val db = Room.databaseBuilder(
-               applicationContext,
-               LocalDatabase::class.java, "local_database"
-           ).build()
+        binding.buttonDelete.setOnClickListener {
+            val db = Room.databaseBuilder(
+                applicationContext, LocalDatabase::class.java, "local_database"
+            ).build()
 
-           customer = MainActivity.customer as Customer
+            customer = MainActivity.customer as Customer
 
-           CoroutineScope(Dispatchers.IO).launch {
+            CoroutineScope(Dispatchers.IO).launch {
 
-               db.customerDao().delete(customer!!)
+                db.customerDao().delete(customer!!)
 
-               val customerResponse = customer!!.id?.let { it1 ->
-                   CustomerApi.retrofitService.deleteCustomer(
-                       it1
-                   )
-               }
-               val deletedCustomer: Response<Void>? = customerResponse
-               if (deletedCustomer != null) {
-                   if (deletedCustomer.isSuccessful) {
-                       val intent = Intent(this@CustomerDetailActivity, RegistrationActivity::class.java)
-                       startActivity(intent)
-                   }
-               }
-           }
-       }
+                val customerResponse = customer!!.id?.let { it1 ->
+                    CustomerApi.retrofitService.deleteCustomer(
+                        it1
+                    )
+                }
+                val deletedCustomer: Response<Void>? = customerResponse
+                if (deletedCustomer != null) {
+                    if (deletedCustomer.isSuccessful) {
+                        val intent =
+                            Intent(this@CustomerDetailActivity, RegistrationActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+            }
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="car_types" >
+    <string-array name="car_types">
         <item>ICE</item>
         <item>BEV</item>
         <item>FCEV</item>

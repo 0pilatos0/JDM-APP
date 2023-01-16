@@ -17,9 +17,7 @@ abstract class LocalDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context) = INSTANCE ?: synchronized(this) {
             val instance = Room.databaseBuilder(
-                context.applicationContext,
-                LocalDatabase::class.java,
-                "local_database"
+                context.applicationContext, LocalDatabase::class.java, "local_database"
             ).build()
             INSTANCE = instance
             instance

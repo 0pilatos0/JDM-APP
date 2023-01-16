@@ -50,8 +50,7 @@ class CustomerEditActivity : AppCompatActivity() {
 
             //update customer in local database
             val db = Room.databaseBuilder(
-                applicationContext,
-                LocalDatabase::class.java, "local_database"
+                applicationContext, LocalDatabase::class.java, "local_database"
             ).build()
 
             CoroutineScope(Dispatchers.IO).launch {

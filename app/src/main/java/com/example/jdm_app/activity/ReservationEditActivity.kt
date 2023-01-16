@@ -74,13 +74,16 @@ class ReservationEditActivity : AppCompatActivity() {
 
     private fun getGPSLocation() {
         // Check if location permission is granted
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
 
             // Request location permission
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                locationPermissionCode)
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode
+            )
 
         } else {
             // Permission granted, get location
@@ -93,10 +96,10 @@ class ReservationEditActivity : AppCompatActivity() {
                 val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                 val postalCode = addresses?.get(0)?.postalCode
 
-                if(postalCode != null) {
+                if (postalCode != null) {
                     // Set postal code in EditText
                     binding.editTextPostalCode.setText(postalCode)
-                }else {
+                } else {
                     // postal code not found, show error message
                     Toast.makeText(this, "Postal code not found", Toast.LENGTH_SHORT).show()
                 }
@@ -108,9 +111,7 @@ class ReservationEditActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == locationPermissionCode) {
@@ -121,10 +122,6 @@ class ReservationEditActivity : AppCompatActivity() {
             }
         }
     }
-
-
-
-
 
 
     /**
@@ -140,16 +137,22 @@ class ReservationEditActivity : AppCompatActivity() {
                 R.id.action_delete -> {
                     if (reservation.id == null) {
                         finish()
-                    } else{
+                    } else {
                         CoroutineScope(Dispatchers.IO).launch {
-                            val response = ReservationApi.retrofitService.deleteReservation(reservation.id!!)
+                            val response =
+                                ReservationApi.retrofitService.deleteReservation(reservation.id!!)
                             withContext(Dispatchers.Main) {
                                 if (response.isSuccessful) {
                                     Toast.makeText(
-                                        this@ReservationEditActivity, "Reservation deleted!", Toast.LENGTH_SHORT
+                                        this@ReservationEditActivity,
+                                        "Reservation deleted!",
+                                        Toast.LENGTH_SHORT
                                     ).show()
                                     finish()
-                                    val intent = Intent(this@ReservationEditActivity, ReservationActivity::class.java)
+                                    val intent = Intent(
+                                        this@ReservationEditActivity,
+                                        ReservationActivity::class.java
+                                    )
                                     startActivity(intent)
                                 } else {
                                     Toast.makeText(
@@ -180,7 +183,8 @@ class ReservationEditActivity : AppCompatActivity() {
                     val date = SimpleDateFormat("yyyy-MM-dd")
                     val formatedDate: String = date.format(calendar.time)
 
-                    reservation.returnDate = LocalDate.parse(formatedDate, LocalDateJsonAdapter.FORMATTER)
+                    reservation.returnDate =
+                        LocalDate.parse(formatedDate, LocalDateJsonAdapter.FORMATTER)
 
                     reservation.termsAndConditions = binding.editTextTermsConditions.text.toString()
                     reservation.reservationFinal = binding.editCheckboxReservationFinal.isChecked
@@ -197,18 +201,28 @@ class ReservationEditActivity : AppCompatActivity() {
                     val rentDate = SimpleDateFormat("yyyy-MM-dd")
                     val formatedRentDate: String = rentDate.format(rentCalendar.time)
 
-                    reservation.rentConditions?.rentDate = LocalDate.parse(formatedRentDate, LocalDateJsonAdapter.FORMATTER)
+                    reservation.rentConditions?.rentDate =
+                        LocalDate.parse(formatedRentDate, LocalDateJsonAdapter.FORMATTER)
 
-                    reservation.rentConditions?.postalCode = binding.editTextPostalCode.text.toString()
-                    reservation.rentConditions?.houseNumber = binding.editTextHouseNumber.text.toString()
+                    reservation.rentConditions?.postalCode =
+                        binding.editTextPostalCode.text.toString()
+                    reservation.rentConditions?.houseNumber =
+                        binding.editTextHouseNumber.text.toString()
                     CoroutineScope(Dispatchers.IO).launch {
                         if (reservation.id == null) {
-                            val response = ReservationApi.retrofitService.createReservation(reservation)
+                            val response =
+                                ReservationApi.retrofitService.createReservation(reservation)
                             withContext(Dispatchers.Main) {
                                 if (response.isSuccessful) {
-                                    Toast.makeText(this@ReservationEditActivity, "Car rented!", Toast.LENGTH_SHORT)
-                                        .show()
-                                    val intent = Intent(this@ReservationEditActivity, ReservationDetailActivity::class.java)
+                                    Toast.makeText(
+                                        this@ReservationEditActivity,
+                                        "Car rented!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this@ReservationEditActivity,
+                                        ReservationDetailActivity::class.java
+                                    )
                                     intent.putExtra("reservation", reservation)
                                     this@ReservationEditActivity.startActivity(intent)
                                 } else {
@@ -220,11 +234,15 @@ class ReservationEditActivity : AppCompatActivity() {
                                 }
                             }
                         } else {
-                            val response = ReservationApi.retrofitService.updateReservation(reservation.id!!, reservation)
+                            val response = ReservationApi.retrofitService.updateReservation(
+                                reservation.id!!, reservation
+                            )
                             withContext(Dispatchers.Main) {
                                 if (response.isSuccessful) {
                                     Toast.makeText(
-                                        this@ReservationEditActivity, "Reservation updated!", Toast.LENGTH_SHORT
+                                        this@ReservationEditActivity,
+                                        "Reservation updated!",
+                                        Toast.LENGTH_SHORT
                                     ).show()
                                     finish()
                                 } else {

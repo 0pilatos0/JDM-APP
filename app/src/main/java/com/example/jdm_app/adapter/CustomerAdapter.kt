@@ -33,7 +33,8 @@ class CustomerAdapter(private val context: Context, private val customer: Custom
 
 }
 
-class CustomerViewHolder(private val binding: CustomerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class CustomerViewHolder(private val binding: CustomerItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(customer: Customer) {
         binding.customerUsername.text = customer.username
         binding.customerDateOfBirth.text = customer.dateOfBirth.toString()

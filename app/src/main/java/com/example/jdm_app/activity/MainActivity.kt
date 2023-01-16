@@ -104,11 +104,10 @@ class MainActivity : AppCompatActivity() {
     /**
      * Checks if the user is registered in the database
      * This function is called on launch and when the user returns to the app
-    */
-    private fun isRegistered(){
+     */
+    private fun isRegistered() {
         val db = Room.databaseBuilder(
-            applicationContext,
-            LocalDatabase::class.java, "local_database"
+            applicationContext, LocalDatabase::class.java, "local_database"
         ).build()
 
         val context: Context = this
@@ -116,18 +115,16 @@ class MainActivity : AppCompatActivity() {
             val customerDao = db.customerDao()
             var customer: Customer = customerDao.getCustomer()
 
-            if(customer == null && !intent.hasExtra("customer")){
+            if (customer == null && !intent.hasExtra("customer")) {
                 val intent = Intent(context, RegistrationActivity::class.java)
                 startActivity(intent)
             }
 
-            if(intent.hasExtra("customer")){
-                customer = intent.getSerializableExtra("customer")
-                        as Customer
+            if (intent.hasExtra("customer")) {
+                customer = intent.getSerializableExtra("customer") as Customer
 
                 MainActivity.customer = customer
-            } else
-            {
+            } else {
                 MainActivity.customer = customer
             }
         }

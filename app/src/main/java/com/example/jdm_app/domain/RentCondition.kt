@@ -5,16 +5,12 @@ import java.io.Serializable
 import java.time.LocalDate
 
 data class RentCondition(
-    @Json(name = "id")
-    val id: Int? = null,
+    @Json(name = "id") val id: Int? = null,
 
-    @Json(name = "rentDate")
-    var rentDate: LocalDate? = null,
+    @Json(name = "rentDate") var rentDate: LocalDate? = null,
 
-    @Json(name = "postalCode")
-    var postalCode: String? = null,
+    @Json(name = "postalCode") var postalCode: String? = null,
 
-    @Json(name = "houseNumber")
-    var houseNumber: String? = null,
+    @Json(name = "houseNumber") var houseNumber: String? = null,
 
     ) : Serializable

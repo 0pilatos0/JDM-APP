@@ -19,7 +19,9 @@ interface ReservationApiService {
     suspend fun createReservation(@Body reservation: Reservation): Response<Reservation>
 
     @PUT("reservation/{id}")
-    suspend fun updateReservation(@Path("id") id: Int, @Body reservation: Reservation): Response<Reservation>
+    suspend fun updateReservation(
+        @Path("id") id: Int, @Body reservation: Reservation
+    ): Response<Reservation>
 
     @DELETE("reservation/{id}")
     suspend fun deleteReservation(@Path("id") id: Int): Response<Void>
@@ -30,15 +32,12 @@ interface ReservationApiService {
 
 private val BASE_URL = BuildConfig.BASE_URL
 
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .add(LocalDateJsonAdapter)
-    .build()
+private val moshi =
+    Moshi.Builder().add(KotlinJsonAdapterFactory()).add(LocalDateJsonAdapter).build()
 
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
-    .build()
+private val retrofit =
+    Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi)).baseUrl(BASE_URL)
+        .build()
 
 object ReservationApi {
     val retrofitService: ReservationApiService by lazy {

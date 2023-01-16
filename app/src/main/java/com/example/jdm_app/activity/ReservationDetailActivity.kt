@@ -39,13 +39,13 @@ class ReservationDetailActivity : AppCompatActivity() {
     }
 
     private fun setupLocationButton() {
-        binding.openLocation.setOnClickListener{
+        binding.openLocation.setOnClickListener {
             val postalCode = binding.textViewPostalCode.text.toString()
-            if(postalCode.isNotEmpty()){
+            if (postalCode.isNotEmpty()) {
                 val uri = "geo:0,0?q=$postalCode"
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                 startActivity(intent)
-            }else{
+            } else {
             }
         }
     }
@@ -57,12 +57,14 @@ class ReservationDetailActivity : AppCompatActivity() {
      */
     private fun bindReservationData(reservation: Reservation) {
         // Car information
-        binding.textViewTitle.text = "${reservation.carListing?.color} ${reservation.carListing?.brand}"
+        binding.textViewTitle.text =
+            "${reservation.carListing?.color} ${reservation.carListing?.brand}"
         binding.textViewDescription.text = "${reservation.carListing?.description}"
         binding.textViewCarType.text = "Car type: ${reservation.carListing?.carType}"
         binding.textViewLicensePlate.text = "License plate: ${reservation.carListing?.licensePlate}"
         binding.textViewPrice.text = "Price: ${reservation.carListing?.price}"
-        binding.textViewCostPerKilometer.text = "Cost per kilometer: ${reservation.carListing?.costPerKilometer}"
+        binding.textViewCostPerKilometer.text =
+            "Cost per kilometer: ${reservation.carListing?.costPerKilometer}"
         binding.textViewSeats.text = "Seats: ${reservation.carListing?.seats}"
 
         // Reservation information
@@ -70,10 +72,13 @@ class ReservationDetailActivity : AppCompatActivity() {
         binding.textViewRentDate.text = "Rent date: ${reservation.rentConditions?.rentDate}"
         binding.textViewReturnDate.text = "Return date: ${reservation.returnDate}"
         binding.textViewPostalCode.text = "Postal Code: ${reservation.rentConditions?.postalCode}"
-        binding.textViewHouseNumber.text = "House number: ${reservation.rentConditions?.houseNumber}"
-        binding.textViewReservationFinal.text = "Reservation finalised: ${if (reservation.reservationFinal!!) "Yes" else "No"}"
+        binding.textViewHouseNumber.text =
+            "House number: ${reservation.rentConditions?.houseNumber}"
+        binding.textViewReservationFinal.text =
+            "Reservation finalised: ${if (reservation.reservationFinal!!) "Yes" else "No"}"
 
-        binding.textViewTermsCondition.text = "Terms and conditions: ${reservation.termsAndConditions}"
+        binding.textViewTermsCondition.text =
+            "Terms and conditions: ${reservation.termsAndConditions}"
 
         binding.buttonEdit.text = "${if (reservation.reservationFinal!!) "Delete" else "Edit"}"
         binding.buttonEdit.setBackgroundColor(Color.parseColor(if (reservation.reservationFinal!!) "#FFB33A3A" else "#FF4CAF50"))

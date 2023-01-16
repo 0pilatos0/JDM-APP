@@ -56,7 +56,8 @@ class OwnedCarAdapter(private val context: Context, private val mCars: List<Car>
     }
 }
 
-class OwnedCarViewHolder(private val binding: CarItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class OwnedCarViewHolder(private val binding: CarItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     /**
      *  Binds the properties of the provided `Car` object to the corresponding views in the layout file.
      *

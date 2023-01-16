@@ -51,13 +51,12 @@ class RegistrationActivity : AppCompatActivity() {
 //                    "1234"
                     val customerResponse = CustomerApi.retrofitService.createCustomer(newCustomer)
 
-                    val customer : Customer? = customerResponse.body()
+                    val customer: Customer? = customerResponse.body()
 
                     //check if customer is a Customer object
                     if (customer != null) {
                         val db = Room.databaseBuilder(
-                            applicationContext,
-                            LocalDatabase::class.java, "local_database"
+                            applicationContext, LocalDatabase::class.java, "local_database"
                         ).build()
                         val customerDao = db.customerDao()
                         customerDao.insert(customer)
