@@ -27,11 +27,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", '"https://c695-2a02-a450-954b-1-3ccc-e0a-a40f-c513.eu.ngrok.io/"'
+            buildConfigField "String", "BASE_URL", '"INSERT_API_ENDPOINT_HERE"'
 
         }
         debug {
-            buildConfigField "String", "BASE_URL", '"https://4504-217-103-132-93.eu.ngrok.io"'
+            buildConfigField "String", "BASE_URL", '"INSERT_API_ENDPOINT_HERE"'
         }
     }
     compileOptions {
