@@ -6,7 +6,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_edit_navigation"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -151,7 +153,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/getLocation"
-                android:text="@string/autofill"/>
+                android:text="@string/autofill"
+                android:layout_marginBottom="50dp"
+                android:textColor="@android:color/white"
+                />
 
         </LinearLayout>
     </ScrollView>
