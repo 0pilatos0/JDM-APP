@@ -48,4 +48,5 @@
     <string name="profile">Profiel</string>
     <string name="edit">Wijzigen</string>
     <string name="autofill" translatable="false">autofill locatie</string>
+    <string name="open_location">Open Location</string>
 </resources>

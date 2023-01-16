@@ -52,4 +52,5 @@
     <string name="profile">Profile</string>
     <string name="edit">Edit</string>
     <string name="autofill">autofill location</string>
+    <string name="open_location">Open Locatie</string>
 </resources>
