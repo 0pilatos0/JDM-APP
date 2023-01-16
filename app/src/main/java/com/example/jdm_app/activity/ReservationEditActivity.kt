@@ -65,8 +65,7 @@ class ReservationEditActivity : AppCompatActivity() {
         )
 
         if (reservation.rentConditions?.postalCode == null) {
-            val gps = getGPSLocation()
-            binding.editTextPostalCode.setText(gps.toString())
+            getGPSLocation()
         } else {
             binding.editTextPostalCode.setText(reservation.rentConditions?.postalCode)
         }
@@ -76,10 +75,28 @@ class ReservationEditActivity : AppCompatActivity() {
 
     private fun getGPSLocation() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+        } else {
+            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    if (location != null) {
+                        val x = location.latitude
+                        val y = location.longitude
+
+                        val geoCoder = android.location.Geocoder(this@ReservationEditActivity)
+                        val address = geoCoder.getFromLocation(x, y, 1)
+                        if (address != null && address.size > 0) {
+                            val postalCode = address[0].postalCode
+                            binding.editTextPostalCode.setText(postalCode)
+                        }
+                    }
+                }
+                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+            }, null)
         }
     }
+
 
     /**
      * Setups up the navigation bar by adding click listeners to the menu items.
