@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.jdm_app.R
 import com.example.jdm_app.adapter.LocalDateJsonAdapter
 import com.example.jdm_app.databinding.ReservationEditBinding
+import com.example.jdm_app.domain.RentCondition
 import com.example.jdm_app.domain.Reservation
 import com.example.jdm_app.service.ReservationApi
 import kotlinx.coroutines.CoroutineScope
@@ -95,10 +96,13 @@ class ReservationEditActivity : AppCompatActivity() {
                 R.id.action_save -> {
                     reservation.reservationDate = LocalDate.now()
                     reservation.returnDate = LocalDate.parse(binding.editDateReturnDate.text.toString(), LocalDateJsonAdapter.FORMATTER)
-                    reservation.reservationFinal = binding.editCheckboxReservationFinal.isChecked
                     reservation.termsAndConditions = binding.editTextTermsConditions.text.toString()
+                    reservation.reservationFinal = binding.editCheckboxReservationFinal.isChecked
 
-                    reservation.rentConditions?.rentDate = LocalDate.parse(binding.editDateRentDate.text.toString(), LocalDateJsonAdapter.FORMATTER)
+                    if (reservation.id == null) {
+                        reservation.rentConditions = RentCondition()
+                    }
+                    reservation.rentConditions?.rentDate = LocalDate.parse(binding.editDateRentDate.text.toString(),LocalDateJsonAdapter.FORMATTER)
                     reservation.rentConditions?.postalCode = binding.editTextPostalCode.text.toString()
                     reservation.rentConditions?.houseNumber = binding.editTextHouseNumber.text.toString()
                     CoroutineScope(Dispatchers.IO).launch {

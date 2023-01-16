@@ -66,6 +66,11 @@ class OwnedCarsActivity : AppCompatActivity() {
             intent.putExtra("car", car)
             this.startActivity(intent)
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        val carViewModel: CarViewModel by viewModels()
+        carViewModel.getCarsByUserId(MainActivity.customer?.id!!)
     }
 }
