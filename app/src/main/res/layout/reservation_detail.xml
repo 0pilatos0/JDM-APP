@@ -16,8 +16,8 @@
         android:id="@+id/text_view_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_car_images"
@@ -28,8 +28,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_view_car_type"
@@ -70,8 +70,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_view_reservation_date"
@@ -145,11 +145,12 @@
         android:layout_height="wrap_content"
         android:text="@string/edit"
         android:textColor="@android:color/white" />
+
     <Button
         android:id="@+id/button_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/back"
         android:layout_marginTop="4dp"
+        android:text="@string/back"
         android:textColor="@android:color/white" />
 </LinearLayout>
