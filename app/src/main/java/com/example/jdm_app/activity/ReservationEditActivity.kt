@@ -2,6 +2,7 @@ package com.example.jdm_app.activity
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.*
 import android.os.Bundle
@@ -205,7 +206,9 @@ class ReservationEditActivity : AppCompatActivity() {
                                 if (response.isSuccessful) {
                                     Toast.makeText(this@ReservationEditActivity, "Car rented!", Toast.LENGTH_SHORT)
                                         .show()
-                                    finish()
+                                    val intent = Intent(this@ReservationEditActivity, ReservationDetailActivity::class.java)
+                                    intent.putExtra("reservation", reservation)
+                                    this@ReservationEditActivity.startActivity(intent)
                                 } else {
                                     Toast.makeText(
                                         this@ReservationEditActivity,

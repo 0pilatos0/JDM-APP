@@ -123,7 +123,9 @@ class ReservationDetailActivity : AppCompatActivity() {
      */
     private fun setupBackButton() {
         binding.buttonBack.setOnClickListener {
-            finish()
+            val intent = Intent(this, ReservationActivity::class.java)
+            this.startActivity(intent)
+            true
         }
     }
 }
