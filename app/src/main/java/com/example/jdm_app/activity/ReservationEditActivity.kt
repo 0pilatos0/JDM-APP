@@ -3,6 +3,7 @@ package com.example.jdm_app.activity
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.*
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,13 +18,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.jdm_app.view.CarViewModel
+import java.util.*
 
 class ReservationEditActivity : AppCompatActivity() {
 
@@ -31,6 +30,8 @@ class ReservationEditActivity : AppCompatActivity() {
     private lateinit var reservation: Reservation
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
+
+
     /**
      * Called when the activity is starting. It perform the following actions:
      *  1.  inflate the `ReservationEditBinding` layout
@@ -73,29 +74,60 @@ class ReservationEditActivity : AppCompatActivity() {
         binding.editTextHouseNumber.setText(reservation.rentConditions?.houseNumber)
     }
 
-    private fun getGPSLocation() {
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
-        } else {
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, object : LocationListener {
-                override fun onLocationChanged(location: Location) {
-                    if (location != null) {
-                        val x = location.latitude
-                        val y = location.longitude
 
-                        val geoCoder = android.location.Geocoder(this@ReservationEditActivity)
-                        val address = geoCoder.getFromLocation(x, y, 1)
-                        if (address != null && address.size > 0) {
-                            val postalCode = address[0].postalCode
-                            binding.editTextPostalCode.setText(postalCode)
-                        }
-                    }
+    private fun getGPSLocation() {
+        // Check if location permission is granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            // Request location permission
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                locationPermissionCode)
+
+        } else {
+            // Permission granted, get location
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+            if (location != null) {
+                // Get postal code from location
+                val geocoder = Geocoder(this, Locale.getDefault())
+                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                val postalCode = addresses?.get(0)?.postalCode
+
+                if(postalCode != null) {
+                    // Set postal code in EditText
+                    binding.editTextPostalCode.setText(postalCode)
+                }else {
+                    // postal code not found, show error message
+                    Toast.makeText(this, "Postal code not found", Toast.LENGTH_SHORT).show()
                 }
-                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
-            }, null)
+            } else {
+                // Location not found, show error message
+                Toast.makeText(this, "Location not found", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == locationPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getGPSLocation()
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+
+
 
 
     /**
