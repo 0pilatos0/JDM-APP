@@ -66,9 +66,13 @@ class ReservationEditActivity : AppCompatActivity() {
         )
 
         if (reservation.rentConditions?.postalCode == null) {
-            getGPSLocation()
+//            getGPSLocation()
         } else {
             binding.editTextPostalCode.setText(reservation.rentConditions?.postalCode)
+        }
+
+        binding.getLocation.setOnClickListener {
+            getGPSLocation()
         }
 
         binding.editTextHouseNumber.setText(reservation.rentConditions?.houseNumber)

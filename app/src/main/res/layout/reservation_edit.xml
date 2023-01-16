@@ -142,6 +142,13 @@
                     android:layout_marginStart="16dp" />
             </LinearLayout>
 
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/getLocation"
+                android:text="@string/autofill"/>
+
         </LinearLayout>
     </ScrollView>
 

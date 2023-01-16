@@ -47,4 +47,5 @@
     <string name="cars">Auto\'s</string>
     <string name="profile">Profiel</string>
     <string name="edit">Wijzigen</string>
+    <string name="autofill" translatable="false">autofill locatie</string>
 </resources>
