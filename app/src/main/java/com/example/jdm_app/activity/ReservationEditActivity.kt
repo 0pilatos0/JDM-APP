@@ -149,6 +149,8 @@ class ReservationEditActivity : AppCompatActivity() {
                                         this@ReservationEditActivity, "Reservation deleted!", Toast.LENGTH_SHORT
                                     ).show()
                                     finish()
+                                    val intent = Intent(this@ReservationEditActivity, ReservationActivity::class.java)
+                                    startActivity(intent)
                                 } else {
                                     Toast.makeText(
                                         this@ReservationEditActivity,

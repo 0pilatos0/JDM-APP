@@ -2,6 +2,7 @@ package com.example.jdm_app.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jdm_app.adapter.ImageAdapter
@@ -9,6 +10,10 @@ import com.example.jdm_app.databinding.CarDetailBinding
 import com.example.jdm_app.domain.Car
 import com.example.jdm_app.domain.Reservation
 import com.example.jdm_app.domain.Customer
+import com.example.jdm_app.service.ReservationApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CarDetailActivity : AppCompatActivity() {
 
@@ -54,6 +59,20 @@ class CarDetailActivity : AppCompatActivity() {
      * Setups up the back button by adding a click listener that closes the current activity when clicked.
      */
     private fun setupRentButton(car: Car) {
+        CoroutineScope(Dispatchers.IO).launch {
+            car.id?.let {
+                val response = ReservationApi.retrofitService.getReservationsByCarId(it)
+                if (response.isSuccessful && response.body() != null) {
+                    val reservations = response.body() as List<Reservation>
+                    if (reservations.isNotEmpty()) {
+                        runOnUiThread {
+                            binding.buttonRent.visibility = View.GONE
+                        }
+                    }
+                }
+            }
+        }
+
         binding.buttonRent.setOnClickListener {
             var user = Customer()
             var reservation = Reservation()

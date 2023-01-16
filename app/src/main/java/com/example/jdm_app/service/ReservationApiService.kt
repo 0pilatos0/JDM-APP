@@ -23,6 +23,9 @@ interface ReservationApiService {
 
     @DELETE("reservation/{id}")
     suspend fun deleteReservation(@Path("id") id: Int): Response<Void>
+
+    @GET("reservation/car/{id}")
+    suspend fun getReservationsByCarId(@Path("id") id: Int): Response<List<Reservation>>
 }
 
 private val BASE_URL = BuildConfig.BASE_URL
