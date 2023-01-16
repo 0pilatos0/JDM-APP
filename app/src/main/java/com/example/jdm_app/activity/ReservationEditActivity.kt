@@ -22,6 +22,7 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.jdm_app.view.CarViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ReservationEditActivity : AppCompatActivity() {
@@ -54,16 +55,7 @@ class ReservationEditActivity : AppCompatActivity() {
      * also set the RecyclerView layout manager and adapter
      */
     private fun bindReservationData() {
-        binding.editDateReturnDate.setText(
-            if (reservation.returnDate == null) ""
-            else reservation.returnDate.toString()
-        )
         binding.editTextTermsConditions.setText(reservation.termsAndConditions)
-
-        binding.editDateRentDate.setText(
-            if (reservation.rentConditions?.rentDate == null) ""
-            else reservation.rentConditions?.rentDate.toString()
-        )
 
         if (reservation.rentConditions?.postalCode == null) {
 //            getGPSLocation()
@@ -176,14 +168,34 @@ class ReservationEditActivity : AppCompatActivity() {
 
                 R.id.action_save -> {
                     reservation.reservationDate = LocalDate.now()
-                    reservation.returnDate = LocalDate.parse(binding.editDateReturnDate.text.toString(), LocalDateJsonAdapter.FORMATTER)
+                    val day: Int = binding.editDateReturnDate.getDayOfMonth()
+                    val month: Int = binding.editDateReturnDate.getMonth()
+                    val year: Int = binding.editDateReturnDate.getYear()
+                    val calendar: Calendar = Calendar.getInstance()
+                    calendar.set(year, month, day)
+
+                    val date = SimpleDateFormat("yyyy-MM-dd")
+                    val formatedDate: String = date.format(calendar.time)
+
+                    reservation.returnDate = LocalDate.parse(formatedDate, LocalDateJsonAdapter.FORMATTER)
+
                     reservation.termsAndConditions = binding.editTextTermsConditions.text.toString()
                     reservation.reservationFinal = binding.editCheckboxReservationFinal.isChecked
 
                     if (reservation.id == null) {
                         reservation.rentConditions = RentCondition()
                     }
-                    reservation.rentConditions?.rentDate = LocalDate.parse(binding.editDateRentDate.text.toString(),LocalDateJsonAdapter.FORMATTER)
+                    val rentDay: Int = binding.editDateRentDate.getDayOfMonth()
+                    val rentMonth: Int = binding.editDateRentDate.getMonth()
+                    val rentYear: Int = binding.editDateRentDate.getYear()
+                    val rentCalendar: Calendar = Calendar.getInstance()
+                    rentCalendar.set(rentYear, rentMonth, rentDay)
+
+                    val rentDate = SimpleDateFormat("yyyy-MM-dd")
+                    val formatedRentDate: String = rentDate.format(rentCalendar.time)
+
+                    reservation.rentConditions?.rentDate = LocalDate.parse(formatedRentDate, LocalDateJsonAdapter.FORMATTER)
+
                     reservation.rentConditions?.postalCode = binding.editTextPostalCode.text.toString()
                     reservation.rentConditions?.houseNumber = binding.editTextHouseNumber.text.toString()
                     CoroutineScope(Dispatchers.IO).launch {

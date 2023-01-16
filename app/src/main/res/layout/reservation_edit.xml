@@ -27,12 +27,14 @@
                     android:text="@string/rent_date"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                <EditText
+                <DatePicker
                     android:id="@+id/edit_date_rent_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:hint="@string/template_date"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"
                     android:inputType="date" />
             </LinearLayout>
 
@@ -49,12 +51,14 @@
                     android:text="@string/return_date"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                <EditText
+                <DatePicker
                     android:id="@+id/edit_date_return_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:hint="@string/template_date"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"
                     android:inputType="date" />
             </LinearLayout>
 
