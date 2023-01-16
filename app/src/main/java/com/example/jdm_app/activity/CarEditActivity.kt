@@ -190,9 +190,6 @@ class CarEditActivity : AppCompatActivity() {
      * On clicking the `Clear Images` button, it clears all the images associated with the car.
      */
     private fun setupButtons() {
-        //TODO REENABLE ONCE ITS FIXED
-//        binding.bottomEditNavigation.selectedItemId = R.id.action_save
-
         binding.buttonSelectImage.setOnClickListener {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(intent, SELECT_IMAGE_REQUEST_CODE)
@@ -200,7 +197,7 @@ class CarEditActivity : AppCompatActivity() {
 
         binding.buttonClearImages.setOnClickListener {
             car.images = mutableListOf()
-            binding.recyclerViewCarImages.adapter?.notifyDataSetChanged()
+            (binding.recyclerViewCarImages.adapter as ImageAdapter).clear()
         }
     }
 

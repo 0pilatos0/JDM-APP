@@ -46,6 +46,14 @@ class ImageAdapter(private val images: MutableList<String>) :
         return images.size
     }
 
+    /**
+     * Clears the list of images.
+     */
+    fun clear() {
+        images.clear()
+        notifyDataSetChanged()
+    }
+
 
     /**
      * Binds the data of the car object to the view.
