@@ -1,5 +1,8 @@
 package com.example.jdm_app.activity
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +17,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.jdm_app.view.CarViewModel
 
 class ReservationEditActivity : AppCompatActivity() {
 
     private lateinit var binding: ReservationEditBinding
     private lateinit var reservation: Reservation
+    private lateinit var locationManager: LocationManager
+    private val locationPermissionCode = 2
     /**
      * Called when the activity is starting. It perform the following actions:
      *  1.  inflate the `ReservationEditBinding` layout
@@ -42,15 +54,31 @@ class ReservationEditActivity : AppCompatActivity() {
      */
     private fun bindReservationData() {
         binding.editDateReturnDate.setText(
-            if(reservation.returnDate == null) ""
-            else reservation.returnDate.toString())
+            if (reservation.returnDate == null) ""
+            else reservation.returnDate.toString()
+        )
         binding.editTextTermsConditions.setText(reservation.termsAndConditions)
 
         binding.editDateRentDate.setText(
-            if(reservation.rentConditions?.rentDate == null) ""
-            else reservation.rentConditions?.rentDate.toString())
-        binding.editTextPostalCode.setText(reservation.rentConditions?.postalCode)
+            if (reservation.rentConditions?.rentDate == null) ""
+            else reservation.rentConditions?.rentDate.toString()
+        )
+
+        if (reservation.rentConditions?.postalCode == null) {
+            val gps = getGPSLocation()
+            binding.editTextPostalCode.setText(gps.toString())
+        } else {
+            binding.editTextPostalCode.setText(reservation.rentConditions?.postalCode)
+        }
+
         binding.editTextHouseNumber.setText(reservation.rentConditions?.houseNumber)
+    }
+
+    private fun getGPSLocation() {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+        }
     }
 
     /**

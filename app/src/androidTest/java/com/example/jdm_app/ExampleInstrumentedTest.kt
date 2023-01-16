@@ -56,4 +56,3 @@ class EspressoTest {
         onView(withId(R.id.action_save)).perform(ViewActions.click())
     }
 }
-// onView(withText("My Cars")).check(matches(isDisplayed()))
