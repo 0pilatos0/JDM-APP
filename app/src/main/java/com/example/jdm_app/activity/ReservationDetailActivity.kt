@@ -2,6 +2,7 @@ package com.example.jdm_app.activity
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,8 +33,21 @@ class ReservationDetailActivity : AppCompatActivity() {
 
         val reservation = intent.getSerializableExtra("reservation") as Reservation
         bindReservationData(reservation)
+        setupLocationButton()
         setupEditButton(reservation)
         setupBackButton()
+    }
+
+    private fun setupLocationButton() {
+        binding.openLocation.setOnClickListener{
+            val postalCode = binding.textViewPostalCode.text.toString()
+            if(postalCode.isNotEmpty()){
+                val uri = "geo:0,0?q=$postalCode"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                startActivity(intent)
+            }else{
+            }
+        }
     }
 
     /**

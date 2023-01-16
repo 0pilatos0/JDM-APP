@@ -29,12 +29,10 @@ class ReservationActivity : AppCompatActivity() {
             binding.recyclerView.adapter = adapter
         }
 
-        //TODO REPLACE WITH LOGGED IN USER
-        reservationViewModel.getReservationsByUserId(1)
+        reservationViewModel.getReservationsByUserId(MainActivity.customer?.id!!)
 
         binding.swipeRefresh.setOnRefreshListener {
-            //TODO REPLACE WITH LOGGED IN USER
-            reservationViewModel.getReservationsByUserId(1)
+            reservationViewModel.getReservationsByUserId(MainActivity.customer?.id!!)
             binding.swipeRefresh.isRefreshing = false
         }
 
