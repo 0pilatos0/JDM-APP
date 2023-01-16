@@ -13,6 +13,10 @@ android {
         enabled = true
     }
 
+    testOptions {
+        animationsDisabled = true
+    }
+
     defaultConfig {
         applicationId "com.example.jdm_app"
         minSdk 28
