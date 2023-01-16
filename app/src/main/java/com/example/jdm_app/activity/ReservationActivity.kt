@@ -51,7 +51,8 @@ class ReservationActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_profile -> {
-                    binding.recyclerView.visibility = RecyclerView.GONE
+                    val intent = Intent(this, CustomerDetailActivity::class.java)
+                    this.startActivity(intent)
                     true
                 }
                 else -> false

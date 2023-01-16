@@ -38,6 +38,8 @@ class CustomerDetailActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_reservation -> {
+                    val intent = Intent(this, ReservationActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.action_cars -> {
