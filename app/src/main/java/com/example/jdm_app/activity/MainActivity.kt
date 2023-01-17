@@ -55,12 +55,6 @@ class MainActivity : AppCompatActivity() {
             binding.recyclerView.adapter = adapter
         }
 
-        val customerViewModel: CustomerViewModel by viewModels()
-        customerViewModel.customer.observe(this) {
-            val adapter = it?.let { it1 -> CustomerAdapter(this, it1) }
-            binding.recyclerView.adapter = adapter
-        }
-
         binding.myCarsButton.setOnClickListener {
             val intent = Intent(this, OwnedCarsActivity::class.java)
             startActivity(intent)
