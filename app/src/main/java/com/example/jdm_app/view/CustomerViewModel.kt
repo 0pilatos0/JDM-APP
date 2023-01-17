@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.jdm_app.activity.MainActivity
 import com.example.jdm_app.domain.Customer
 import com.example.jdm_app.service.CarApi
 import com.example.jdm_app.service.CustomerApi
@@ -21,7 +22,8 @@ class CustomerViewModel : ViewModel() {
 
     private fun getCustomer() {
         viewModelScope.launch {
-            val customer = CustomerApi.retrofitService.getCustomer(1).body()
+            val customer =
+                MainActivity.customer?.id?.let { CustomerApi.retrofitService.getCustomer(1).body() }
             _customer.value = customer
         }
     }

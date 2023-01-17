@@ -106,13 +106,13 @@ class MainActivity : AppCompatActivity() {
      * This function is called on launch and when the user returns to the app
      */
     private fun isRegistered() {
-        val db = Room.databaseBuilder(
-            applicationContext, LocalDatabase::class.java, "local_database"
-        ).build()
+        // get the database instance
+        val localDatabase = LocalDatabase.getDatabase(this)
 
+        // Create a coroutine scope using a job to be able to cancel when needed
         val context: Context = this
         CoroutineScope(Dispatchers.IO).launch {
-            val customerDao = db.customerDao()
+            val customerDao = localDatabase.customerDao()
             var customer: Customer = customerDao.getCustomer()
 
             if (customer == null && !intent.hasExtra("customer")) {

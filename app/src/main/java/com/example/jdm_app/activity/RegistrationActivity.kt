@@ -55,10 +55,9 @@ class RegistrationActivity : AppCompatActivity() {
 
                     //check if customer is a Customer object
                     if (customer != null) {
-                        val db = Room.databaseBuilder(
-                            applicationContext, LocalDatabase::class.java, "local_database"
-                        ).build()
-                        val customerDao = db.customerDao()
+
+                        val localDatabase = LocalDatabase.getDatabase(context)
+                        val customerDao = localDatabase.customerDao()
                         customerDao.insert(customer)
 
                         val intent = Intent(context, MainActivity::class.java)

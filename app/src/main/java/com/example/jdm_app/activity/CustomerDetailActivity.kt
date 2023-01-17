@@ -78,15 +78,14 @@ class CustomerDetailActivity : AppCompatActivity() {
 
     private fun setupDeleteButton() {
         binding.buttonDelete.setOnClickListener {
-            val db = Room.databaseBuilder(
-                applicationContext, LocalDatabase::class.java, "local_database"
-            ).build()
+
+            val localDatabase = LocalDatabase.getDatabase(this)
 
             customer = MainActivity.customer as Customer
 
             CoroutineScope(Dispatchers.IO).launch {
 
-                db.customerDao().delete(customer!!)
+                localDatabase.customerDao().delete(customer!!)
 
                 val customerResponse = customer!!.id?.let { it1 ->
                     CustomerApi.retrofitService.deleteCustomer(

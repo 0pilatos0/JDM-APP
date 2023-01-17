@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Local
 
 class CustomerEditActivity : AppCompatActivity() {
     private lateinit var binding: CustomerEditBinding
@@ -49,13 +50,12 @@ class CustomerEditActivity : AppCompatActivity() {
             customer.dateOfBirth = formattedDate
 
             //update customer in local database
-            val db = Room.databaseBuilder(
-                applicationContext, LocalDatabase::class.java, "local_database"
-            ).build()
+
+            val localDatabase = LocalDatabase.getDatabase(this)
 
             CoroutineScope(Dispatchers.IO).launch {
 
-                db.customerDao().update(customer)
+                localDatabase.customerDao().update(customer)
 
                 val customerResponse = customer.id?.let { it1 ->
                     CustomerApi.retrofitService.updateCustomer(
